@@ -11,3 +11,12 @@ class PostCreateForm(FlaskForm):
             raise ValidationError("Post must have content!")
         if len(field.data) > 1000:
             raise ValidationError("Post cannot be bigger than 1000 Characters.")
+
+class PostEditForm(FlaskForm):
+    content = StringField("Content", validators=[DataRequired()])
+
+    def validate_content(form, field):
+        if len(field.data) < 1:
+            raise ValidationError("Post must have content!")
+        if len(field.data) > 1000:
+            raise ValidationError("Post cannot be bigger than 1000 Characters.")
