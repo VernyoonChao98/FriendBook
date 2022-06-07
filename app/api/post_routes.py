@@ -27,6 +27,8 @@ def create_post():
     if form.errors:
         return form.errors
 
+    return {"error": "Failed"}
+
 @post_routes.route("/<int:id>", methods=["PUT"])
 def edit_post(id):
     form = PostEditForm()
@@ -42,6 +44,8 @@ def edit_post(id):
 
     if form.errors:
         return form.errors
+
+    return {"error": "Failed"}
 
 @post_routes.route("/<int:id>", methods=["DELETE"])
 def delete_post(id):

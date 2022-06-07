@@ -19,5 +19,7 @@ class Comment(db.Model):
             'id': self.id,
             'user_id': self.user_id,
             'post_id': self.post_id,
-            'content': self.content
+            'content': self.content,
+            'created_at': self.created_at,
+            'edited': self.edited
         }
