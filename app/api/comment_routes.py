@@ -6,7 +6,7 @@ comment_routes = Blueprint('comments', __name__)
 
 
 @comment_routes.route("/", methods=["POST"])
-def create_comment(id):
+def create_comment():
     form = CommentCreateForm()
     if form.validate_on_submit():
         comment = Comment(
