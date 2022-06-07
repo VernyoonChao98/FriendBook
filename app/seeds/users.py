@@ -1,18 +1,32 @@
 from app.models import db, User
+from datetime import date
+from werkzeug.security import generate_password_hash
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', email='demo@aa.io', password='password')
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
-    bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
+        firstname='demo', lastname="demo", username='FriendBook', email='friendbookclone@aa.com',
+        hashed_password=generate_password_hash("password"), birthday=date(2022, 6, 7))
+    vern = User(
+        firstname='Vernyoon', lastname="Chao", username='Coolycool', email='coolycool@cool.com',
+        hashed_password=generate_password_hash("password"), birthday=date(1998, 10, 5))
+    darren = User(
+        firstname='Darren', lastname="Kong", username='ComeEatChinaCity', email='darren@aa.com',
+        hashed_password=generate_password_hash("password"), birthday=date(2022, 6, 7))
+    ara = User(
+        firstname='Ara', lastname="Sargsyan", username='ThePaleRider', email='ara@aa.com',
+        hashed_password=generate_password_hash("password"), birthday=date(2022, 6, 7))
+    chris = User(
+        firstname='Chris', lastname="Threadgill", username='ChrisCharming', email='chris@aa.com',
+        hashed_password=generate_password_hash("password"), birthday=date(2022, 6, 7))
+    paul = User(
+        firstname='Paul', lastname="Melhus", username='DukeSilver', email='friendbookclone@aa.com',
+        hashed_password=generate_password_hash("password"), birthday=date(2022, 6, 7))
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
+    usersList = [demo, vern, darren, ara, chris, paul]
+    for user in usersList:
+        db.session.add(user)
 
     db.session.commit()
 
