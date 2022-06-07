@@ -20,8 +20,8 @@ class User(db.Model, UserMixin):
     posts = db.relationship("Post", back_populates="user")
     comments = db.relationship("Comment", back_populates="user")
 
-    sender = db.relationship("Friend", back_populates="usera")
-    recipient = db.relationship("Friend", back_populates="userb")
+    # sender = db.relationship("Friend", back_populates="usera")
+    # recipient = db.relationship("Friend", back_populates="userb")
 
     @property
     def password(self):

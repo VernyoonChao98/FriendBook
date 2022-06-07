@@ -1,16 +1,16 @@
-from app.models import db, Post
+from app.models import db, Post, Comment
 from datetime import date
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_posts():
-    demo = User(
-        firstname='demo', lastname="demo", username='FriendBook', email='friendbookclone@aa.com',
-        hashed_password=generate_password_hash("password"), birthday=date(2022, 6, 7))
-    post1 = Post(user_id=1, content="CAPSTONE!!!!!!!!!!!!!!!!!!!!!!!")
+    comment1 = Comment(user_id=1, content="YESS SIRRRRRRRRRRRRR")
+
+    post1 = Post(user_id=1, content="CAPSTONE!!!!!!!!!!!!!!!!!!!!!!!", comments=[comment1])
 
 
     postsList = [post1]
+
 
     for post in postsList:
         db.session.add(post)

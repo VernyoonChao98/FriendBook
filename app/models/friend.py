@@ -1,5 +1,5 @@
 from .db import db
-
+import datetime
 
 class Friend(db.Model):
     __tablename__ = "friends"
@@ -10,8 +10,8 @@ class Friend(db.Model):
     status = db.Column(db.Boolean, nullable=False, default=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
 
-    usera = db.relationship("User", foreign_keys=[user_a], back_populates="sender")
-    userb = db.relationship("User", foreign_keys=[user_b], back_populates="recipient")
+    sender_id = db.relationship("User", foreign_keys=[user_a], backref="sender")
+    recipient_id = db.relationship("User", foreign_keys=[user_b], backref="recipient")
 
     def to_dict(self):
         return {

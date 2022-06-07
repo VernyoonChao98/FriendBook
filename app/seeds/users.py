@@ -21,10 +21,11 @@ def seed_users():
         firstname='Chris', lastname="Threadgill", username='ChrisCharming', email='chris@aa.com',
         hashed_password=generate_password_hash("password"), birthday=date(2022, 6, 7))
     paul = User(
-        firstname='Paul', lastname="Melhus", username='DukeSilver', email='friendbookclone@aa.com',
+        firstname='Paul', lastname="Melhus", username='DukeSilver', email='paul@aa.com',
         hashed_password=generate_password_hash("password"), birthday=date(2022, 6, 7))
 
     usersList = [demo, vern, darren, ara, chris, paul]
+
     for user in usersList:
         db.session.add(user)
 
