@@ -1,10 +1,10 @@
 import rfdc from "rfdc";
 const clone = rfdc();
 
-const GET_ALL_POSTS = "/api/GETALLPOSTS";
-const ADD_A_POST = "/api/ADDAPOST";
-const EDIT_A_POST = "/api/EDITAPOST";
-const REMOVE_A_POST = "/api/REMOVEAPOST";
+const GET_ALL_POSTS = "/api/GET_ALL_POSTS";
+const ADD_A_POST = "/api/ADD_A_POST";
+const EDIT_A_POST = "/api/EDIT_A_POST";
+const REMOVE_A_POST = "/api/REMOVE_A_POST";
 
 const loadPosts = (payload) => ({
   type: GET_ALL_POSTS,
@@ -28,6 +28,7 @@ const removePost = (payload) => ({
 
 export const getAllPosts = () => async (dispatch) => {
   const response = await fetch("/api/posts/");
+
   if (response.ok) {
     const posts = await response.json();
     dispatch(loadPosts(posts));
@@ -40,6 +41,7 @@ export const createAPost = (payload) => async (dispatch) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
+
   if (response.ok) {
     const newPost = await response.json();
     dispatch(addPost(newPost));
@@ -52,6 +54,7 @@ export const editAPost = (payload) => async (dispatch) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
+
   if (response.ok) {
     const editedPost = await response.json();
     dispatch(editPost(editedPost));

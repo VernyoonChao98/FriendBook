@@ -27,54 +27,58 @@ def profile_avatar_edit(id):
     form = UserProfileEditForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        if request.files:
-            image = request.files["image"]
-            if not allowed_file(image.filename):
-                return {"errors":"file type not permitted"}, 400
-
-                image.filename = get_unique_filename(image.filename)
-
-                upload = upload_file_to_s3(image)
-                # check if upload worked
-                if "url" not in upload:
-                    return upload, 400
-
-                url = upload["url"]
-            else:
-                url = None
-
         user = User.query.get(id)
 
-        user.bio = form.bio.data
-        user.avatar_url = url
+        if request.files:
+            image = request.files["image"]
 
-        db.session.add(user)
-        db.session.commit()
-        return user.to_dict
-    return {"error": "Failed"}
-
-@user_routes.route('/banner/<int:id>', methods=["PUT"])
-def profile_banner_edit(id):
-    if request.files:
-        image = request.files["image"]
-        if not allowed_file(image.filename):
-            return {"errors":"file type not permitted"}, 400
+            if not allowed_file(image.filename):
+                return {"errors":"file type not permitted"}, 400
 
             image.filename = get_unique_filename(image.filename)
 
             upload = upload_file_to_s3(image)
             # check if upload worked
             if "url" not in upload:
-                return upload, 400
+                    return upload, 400
 
             url = upload["url"]
         else:
-            url = None
+            url = user.avatar_url
 
+
+        user.bio = form.bio.data
+        user.avatar_url = url
+
+        db.session.add(user)
+        db.session.commit()
+        return user.to_dict()
+    return {"error": "Failed"}
+
+@user_routes.route('/banner/<int:id>', methods=["PUT"])
+def profile_banner_edit(id):
     user = User.query.get(id)
+
+    if request.files:
+        image = request.files["image"]
+
+        if not allowed_file(image.filename):
+            return {"errors":"file type not permitted"}, 400
+
+        image.filename = get_unique_filename(image.filename)
+
+        upload = upload_file_to_s3(image)
+        # check if upload worked
+        if "url" not in upload:
+            return upload, 400
+
+        url = upload["url"]
+    else:
+        url = user.banner_url
+
 
     user.banner_url = url
 
     db.session.add(user)
     db.session.commit()
-    return user.to_dict
+    return user.to_dict()

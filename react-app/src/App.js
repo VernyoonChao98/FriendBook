@@ -9,7 +9,7 @@ import UsersList from "./components/UsersList";
 import User from "./components/User";
 
 import SplashPage from "./components/SplashPage/SplashPage";
-import Home from "./components/Homepage/Home";
+import Home from "./components/Home/Home";
 
 import { authenticate } from "./store/session";
 
