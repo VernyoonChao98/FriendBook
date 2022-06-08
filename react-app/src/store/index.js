@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import session from "./session";
 import postReducer from "./post";
 import userProfileReducer from "./userprofile";
+import commentReducer from "./comment";
 
 const rootReducer = combineReducers({
   session,
