@@ -1,10 +1,10 @@
 import rfdc from "rfdc";
 const clone = rfdc();
 
-const GET_ALL_POSTS = "/api/GETALLPOSTS";
-const ADD_A_POST = "/api/ADDAPOST";
-const EDIT_A_POST = "/api/EDITAPOST";
-const REMOVE_A_POST = "/api/REMOVEAPOST";
+const GET_ALL_POSTS = "/api/GET_ALL_POSTS";
+const ADD_A_POST = "/api/ADD_A_POST";
+const EDIT_A_POST = "/api/EDIT_A_POST";
+const REMOVE_A_POST = "/api/REMOVE_A_POST";
 
 const loadPosts = (payload) => ({
   type: GET_ALL_POSTS,

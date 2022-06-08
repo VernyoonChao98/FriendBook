@@ -1,37 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserProfile, cleanUserProfile } from "../store/userprofile";
 
 function User() {
-  const [user, setUser] = useState({});
+  const dispatch = useDispatch();
+  const [isLoaded, setIsLoaded] = useState(false);
   const { userId } = useParams();
+  const userProfile = useSelector((state) => state.userprofile)[userId];
 
   useEffect(() => {
-    if (!userId) {
-      return;
-    }
-    (async () => {
-      const response = await fetch(`/api/users/${userId}`);
-      const user = await response.json();
-      setUser(user);
-    })();
-  }, [userId]);
+    const payload = {
+      userId,
+    };
 
-  if (!user) {
-    return null;
-  }
+    dispatch(getUserProfile(payload)).then(() => {
+      setIsLoaded(true);
+    });
+
+    return () => {
+      dispatch(cleanUserProfile());
+    };
+  }, [dispatch]);
 
   return (
-    <ul>
-      <li>
-        <strong>User Id</strong> {userId}
-      </li>
-      <li>
-        <strong>Username</strong> {user.username}
-      </li>
-      <li>
-        <strong>Email</strong> {user.email}
-      </li>
-    </ul>
+    isLoaded && (
+      <div>
+        <span>{userProfile.firstname}</span>
+        <span>{userProfile.lastname}</span>
+      </div>
+    )
   );
 }
 export default User;
