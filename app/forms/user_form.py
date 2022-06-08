@@ -4,3 +4,4 @@ from wtforms.validators import DataRequired, ValidationError
 
 class UserProfileEditForm(FlaskForm):
     bio = StringField("Biography", validators=[DataRequired()])
+    
