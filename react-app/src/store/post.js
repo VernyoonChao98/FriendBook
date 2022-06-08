@@ -27,7 +27,7 @@ const removePost = (payload) => ({
 });
 
 export const getAllPosts = () => async (dispatch) => {
-  const response = await fetch("/api/posts");
+  const response = await fetch("/api/posts/");
   if (response.ok) {
     const posts = await response.json();
     dispatch(loadPosts(posts));
