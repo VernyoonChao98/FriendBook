@@ -4,7 +4,7 @@ from app.forms.friend_form import FriendRequestForm
 
 friend_routes = Blueprint('friends', __name__)
 
-@friend_routes.route("/<ind:id>")
+@friend_routes.route("/<int:id>")
 def get_all_my_friends(id):
     friends = Friend.query.filter(user_a == id).all()
     return { "friends": [friend.to_dict() for friend in friends]}

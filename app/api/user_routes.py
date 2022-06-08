@@ -22,7 +22,7 @@ def user(id):
     user = User.query.get(id)
     return user.to_dict()
 
-@user_routes.route('/profile/<int:id>', Method=["PUT"])
+@user_routes.route('/profile/<int:id>', methods=["PUT"])
 def profile_avatar_edit(id):
     form = UserProfileEditForm()
     if form.validate_on_submit():
@@ -52,8 +52,8 @@ def profile_avatar_edit(id):
         return user.to_dict
     return {"error": "Failed"}
 
-@user_routes.route('/banner/<int:id>', Method=["PUT"])
-def profile_avatar_edit(id):
+@user_routes.route('/banner/<int:id>', methods=["PUT"])
+def profile_banner_edit(id):
     if request.files:
         image = request.files["image"]
         if not allowed_file(image.filename):
