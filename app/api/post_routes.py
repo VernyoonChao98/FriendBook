@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from app.models import db, Post
 from app.forms.post_form import PostCreateForm, PostEditForm
 
@@ -13,6 +13,7 @@ def get_all_posts():
 @post_routes.route("/", methods=["POST"])
 def create_post():
     form = PostCreateForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         post = Post(
             user_id= form.user_id.data,
@@ -32,6 +33,7 @@ def create_post():
 @post_routes.route("/<int:id>", methods=["PUT"])
 def edit_post(id):
     form = PostEditForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         post = Post.query.get(id)
         post.content = form.content.data

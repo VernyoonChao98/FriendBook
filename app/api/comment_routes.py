@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from app.models import Comment
 from app.forms.comment_form import CommentCreateForm, CommentEditForm
 
@@ -8,6 +8,7 @@ comment_routes = Blueprint('comments', __name__)
 @comment_routes.route("/", methods=["POST"])
 def create_comment():
     form = CommentCreateForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         comment = Comment(
             user_id= form.user_id.data,
@@ -29,6 +30,7 @@ def create_comment():
 @comment_routes.route("/<int:id>", methods=["PUT"])
 def edit_comment(id):
     form = CommentEditForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         comment = Comment.query.get(id)
         comment.content = form.content.data
