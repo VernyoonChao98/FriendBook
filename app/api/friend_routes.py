@@ -4,11 +4,26 @@ from app.forms.friend_form import FriendRequestForm
 
 friend_routes = Blueprint('friends', __name__)
 
-@friend_routes.route("/<int:id>")
+# Gets all friends
+@friend_routes.route("/myFriends/<int:id>")
 def get_all_my_friends(id):
-    friends = Friend.query.filter(user_a == id).all()
-    return { "friends": [friend.to_dict() for friend in friends]}
+    friends_a = Friend.query.filter(Friend.user_a == id, Friend.status == True).all()
+    friends_b = Friend.query.filter(Friend.user_b == id, Friend.status == True).all()
+    return { "acceptedSentFQ": [friend.to_dict() for friend in friends_a], "acceptedReceivedFQ": [friend.to_dict() for friend in friends_b]}
 
+# Gets all my sent friend requests
+@friend_routes.route("/sentFQ/<int:id>")
+def get_all_my_sent_friend_request(id):
+    friends = Friend.query.filter(Friend.user_a == id, Friend.status == False).all()
+    return { "sentFQ": [friend.to_dict() for friend in friends]}
+
+# Gets all my received friend requests that can be accepted or denied
+@friend_routes.route("/receivedFQ/<int:id>")
+def get_all_my_friend_request(id):
+    friends = Friend.query.filter(Friend.user_b == id, Friend.status == False).all()
+    return { "receivedFQ": [friend.to_dict() for friend in friends]}
+
+# Creates a friend request
 @friend_routes.route("/<int:id>", methods=["POST"])
 def create_friend_request(id):
     form = FriendRequestForm()
@@ -28,6 +43,7 @@ def create_friend_request(id):
 
     return {"error": "Failed"}
 
+# Confirms a friend request to be friends
 @friend_routes.route("/<int:id>", methods=["PUT"])
 def confirm_friend(id):
     form = FriendRequestForm()
@@ -45,7 +61,7 @@ def confirm_friend(id):
 
     return {"error": "Failed"}
 
-
+# Denies a friend request to be friends
 @friend_routes.route("/<int:id>", methods=["DELETE"])
 def delete_friend(id):
     if (id):
