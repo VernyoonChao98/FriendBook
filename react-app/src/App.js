@@ -38,13 +38,14 @@ function App() {
           <NavBar />
           <Home />
         </ProtectedRoute>
-        {/* <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
+        <ProtectedRoute path="/profile/:userId" exact={true}>
+          <NavBar />
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
+        {/* <ProtectedRoute path='/users' exact={true} >
+          <UsersList/>
+        </ProtectedRoute> */}
+        {/* <ProtectedRoute path='/' exact={true} >
           <h1>My Home Page</h1>
         </ProtectedRoute> */}
       </Switch>

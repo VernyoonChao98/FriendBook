@@ -25,6 +25,7 @@ def user(id):
 @user_routes.route('/profile/<int:id>', methods=["PUT"])
 def profile_avatar_edit(id):
     form = UserProfileEditForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         if request.files:
             image = request.files["image"]

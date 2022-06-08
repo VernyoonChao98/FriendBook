@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from app.models import Friend
 from app.forms.friend_form import FriendRequestForm
 
@@ -27,6 +27,7 @@ def get_all_my_friend_request(id):
 @friend_routes.route("/<int:id>", methods=["POST"])
 def create_friend_request(id):
     form = FriendRequestForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         friend = Friend(
             user_a= form.user_a.data,
@@ -47,6 +48,7 @@ def create_friend_request(id):
 @friend_routes.route("/<int:id>", methods=["PUT"])
 def confirm_friend(id):
     form = FriendRequestForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         friend = Friend.query.get(id)
         friend.status = True
