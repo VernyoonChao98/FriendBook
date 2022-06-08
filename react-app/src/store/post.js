@@ -28,6 +28,7 @@ const removePost = (payload) => ({
 
 export const getAllPosts = () => async (dispatch) => {
   const response = await fetch("/api/posts/");
+
   if (response.ok) {
     const posts = await response.json();
     dispatch(loadPosts(posts));
@@ -40,6 +41,7 @@ export const createAPost = (payload) => async (dispatch) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
+
   if (response.ok) {
     const newPost = await response.json();
     dispatch(addPost(newPost));
@@ -52,6 +54,7 @@ export const editAPost = (payload) => async (dispatch) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
+
   if (response.ok) {
     const editedPost = await response.json();
     dispatch(editPost(editedPost));
