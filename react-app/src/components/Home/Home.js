@@ -58,7 +58,7 @@ function Home() {
     e.preventDefault();
     const payload = {
       commentId,
-      content: "edited the postsssss",
+      content: "edited the commentsssss",
     };
 
     dispatch(editAComment(payload));

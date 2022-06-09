@@ -13,6 +13,8 @@ function User() {
   const { userId } = useParams();
   const userProfile = useSelector((state) => state.userprofile)[userId];
 
+  console.log(userProfile);
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [avatarImage, setAvatarImage] = useState();
   const [bannerImage, setBannerImage] = useState();
@@ -30,7 +32,7 @@ function User() {
       dispatch(cleanUserProfile());
       setIsLoaded(false);
     };
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   const editMyUserProfile = (e) => {
     e.preventDefault();
@@ -65,13 +67,13 @@ function User() {
   return (
     isLoaded && (
       <div>
-        <span>{userProfile.firstname}</span>
-        <img src={userProfile.avatar_url} alt="avatar"></img>
-        <img src={userProfile.banner_url} alt="banner"></img>
-        <span>{userProfile.lastname}</span>
-        <span>{userProfile.username}</span>
-        <span>{userProfile.bio}</span>
-        <span>{userProfile.birthday}</span>
+        <span>{userProfile?.firstname}</span>
+        <img src={userProfile?.avatar_url} alt="avatar"></img>
+        <img src={userProfile?.banner_url} alt="banner"></img>
+        <span>{userProfile?.lastname}</span>
+        <span>{userProfile?.username}</span>
+        <span>{userProfile?.bio}</span>
+        <span>{userProfile?.birthday}</span>
         <form onSubmit={editMyUserProfile}>
           <input
             type="file"
