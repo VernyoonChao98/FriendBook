@@ -10,6 +10,10 @@ import {
   deleteAComment,
 } from "../../store/post";
 
+import CreatePostModal from "./Modal/CreatePostModal";
+import EditPostModal from "./Modal/EditPostModal";
+import DeletePostModal from "./Modal/DeletePostModal";
+
 // import { createAComment } from "../../store/comment";
 
 function Home() {
@@ -23,16 +27,6 @@ function Home() {
     });
   }, [dispatch]);
 
-  const createPost = (e) => {
-    e.preventDefault();
-    const payload = {
-      user_id: user.id,
-      content: "hard coded",
-    };
-
-    dispatch(createAPost(payload));
-  };
-
   const createComment = (e, postId) => {
     e.preventDefault();
     const payload = {
@@ -44,16 +38,6 @@ function Home() {
     dispatch(createAComment(payload));
   };
 
-  const editPost = (e, postId) => {
-    e.preventDefault();
-    const payload = {
-      postId,
-      content: "edited the postsssss",
-    };
-
-    dispatch(editAPost(payload));
-  };
-
   const editComment = (e, commentId) => {
     e.preventDefault();
     const payload = {
@@ -62,14 +46,6 @@ function Home() {
     };
 
     dispatch(editAComment(payload));
-  };
-
-  const deletePost = (e, postId) => {
-    e.preventDefault();
-    const payload = {
-      postId,
-    };
-    dispatch(deleteAPost(payload));
   };
 
   const deleteComment = (e, commentId) => {
@@ -85,25 +61,14 @@ function Home() {
     isLoaded && (
       <div>
         <span>Home</span>
+        <CreatePostModal />
         <div>
           {Object.values(posts).map((post) => {
             return (
               <div key={post.id}>
                 <span>{post.content}</span>
-                <button
-                  onClick={(e) => {
-                    editPost(e, post.id);
-                  }}
-                >
-                  Edit Post
-                </button>
-                <button
-                  onClick={(e) => {
-                    deletePost(e, post.id);
-                  }}
-                >
-                  Delete Post
-                </button>
+                <EditPostModal post={post} />
+                <DeletePostModal post={post} />
                 <button
                   onClick={(e) => {
                     createComment(e, post.id);
@@ -137,7 +102,6 @@ function Home() {
             );
           })}
         </div>
-        <button onClick={createPost}>Create Post</button>
       </div>
     )
   );
