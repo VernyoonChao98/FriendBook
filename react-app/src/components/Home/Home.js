@@ -13,6 +13,9 @@ import {
 import CreatePostModal from "./Modal/CreatePostModal";
 import EditPostModal from "./Modal/EditPostModal";
 import DeletePostModal from "./Modal/DeletePostModal";
+import CreateCommentForm from "./Forms/CreateCommentForm";
+import EditCommentModal from "./Modal/EditCommentModal";
+import DeleteCommentModal from "./Modal/DeleteCommentModal";
 
 // import { createAComment } from "../../store/comment";
 
@@ -27,80 +30,34 @@ function Home() {
     });
   }, [dispatch]);
 
-  const createComment = (e, postId) => {
-    e.preventDefault();
-    const payload = {
-      user_id: user.id,
-      post_id: postId,
-      content: "hard Comment",
-    };
-
-    dispatch(createAComment(payload));
-  };
-
-  const editComment = (e, commentId) => {
-    e.preventDefault();
-    const payload = {
-      commentId,
-      content: "edited the commentsssss",
-    };
-
-    dispatch(editAComment(payload));
-  };
-
-  const deleteComment = (e, commentId) => {
-    e.preventDefault();
-    const payload = {
-      commentId,
-    };
-
-    dispatch(deleteAComment(payload));
-  };
-
   return (
     isLoaded && (
       <div>
         <span>Home</span>
         <CreatePostModal />
         <div>
-          {Object.values(posts).map((post) => {
-            return (
-              <div key={post.id}>
-                <span>{post.content}</span>
-                <EditPostModal post={post} />
-                <DeletePostModal post={post} />
-                <button
-                  onClick={(e) => {
-                    createComment(e, post.id);
-                  }}
-                >
-                  Create A Comment
-                </button>
-                {Object.values(post.comments).map((comment) => {
-                  return (
-                    <div key={comment.id}>
-                      <span>{comment.id}</span>
-                      <span>{comment.content}</span>
-                      <button
-                        onClick={(e) => {
-                          editComment(e, comment.id);
-                        }}
-                      >
-                        Edit Comment
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          deleteComment(e, comment.id);
-                        }}
-                      >
-                        Delete Comment
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-            );
-          })}
+          {Object.values(posts)
+            .reverse()
+            .map((post) => {
+              return (
+                <div key={post.id}>
+                  <span>{post.content}</span>
+                  <EditPostModal post={post} />
+                  <DeletePostModal post={post} />
+                  <CreateCommentForm post={post} />
+                  {Object.values(post.comments).map((comment) => {
+                    return (
+                      <div key={comment.id}>
+                        <span>{comment.user.username} </span>
+                        <span>{comment.content}</span>
+                        <EditCommentModal comment={comment} />
+                        <DeleteCommentModal comment={comment} />
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
         </div>
       </div>
     )

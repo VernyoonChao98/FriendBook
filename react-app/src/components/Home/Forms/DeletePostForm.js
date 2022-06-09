@@ -16,7 +16,7 @@ function DeletePostForm({ post, setShowModal }) {
 
   return (
     <div>
-      <div>Confirm Delete?</div>
+      <div>Confirm Delete Post?</div>
       <button onClick={deletePost}>Confirm</button>
     </div>
   );

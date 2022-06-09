@@ -54,10 +54,12 @@ def delete_post(id):
     if (id):
         post = Post.query.get(id)
 
+        old_post = post.to_dict()
+
         db.session.delete(post)
         db.session.commit()
 
-        return post.to_dict()
+        return old_post
     else:
         return {"error": "No post was found to delete"}
 

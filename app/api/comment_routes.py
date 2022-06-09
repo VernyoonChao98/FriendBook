@@ -52,10 +52,12 @@ def delete_comment(id):
     if (id):
         comment = Comment.query.get(id)
 
+        old_comment = comment.to_dict()
+
         db.session.delete(comment)
         db.session.commit()
 
-        return comment.to_dict()
+        return old_comment
     else:
         return {"error": "No comment was found to delete"}
 
