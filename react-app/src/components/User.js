@@ -28,6 +28,7 @@ function User() {
 
     return () => {
       dispatch(cleanUserProfile());
+      setIsLoaded(false);
     };
   }, [dispatch]);
 
