@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createAPost, editAPost, deleteAPost } from "../../../store/post";
+import { createAPost } from "../../../store/post";
 
 function CreatePostForm({ setShowModal }) {
   const dispatch = useDispatch();
@@ -17,24 +17,6 @@ function CreatePostForm({ setShowModal }) {
 
     dispatch(createAPost(payload));
     setShowModal(false);
-  };
-
-  const editPost = (e, postId) => {
-    e.preventDefault();
-    const payload = {
-      postId,
-      content,
-    };
-
-    dispatch(editAPost(payload));
-  };
-
-  const deletePost = (e, postId) => {
-    e.preventDefault();
-    const payload = {
-      postId,
-    };
-    dispatch(deleteAPost(payload));
   };
 
   return (

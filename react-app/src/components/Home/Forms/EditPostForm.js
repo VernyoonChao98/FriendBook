@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { createAPost, editAPost, deleteAPost } from "../../../store/post";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { editAPost } from "../../../store/post";
 
 function EditPostForm({ post, setShowModal }) {
   const dispatch = useDispatch();

@@ -6,16 +6,15 @@ import {
   editUserProfile,
   editBannerImage,
   cleanUserProfile,
-} from "../store/userprofile";
+} from "../../store/userprofile";
 
 function User() {
   const dispatch = useDispatch();
   const { userId } = useParams();
   const userProfile = useSelector((state) => state.userprofile)[userId];
 
-  console.log(userProfile);
-
   const [isLoaded, setIsLoaded] = useState(false);
+  const [bio, setBio] = useState("");
   const [avatarImage, setAvatarImage] = useState();
   const [bannerImage, setBannerImage] = useState();
 
@@ -38,10 +37,11 @@ function User() {
     e.preventDefault();
     const payload = {
       userId,
-      bio: "changed",
+      bio,
       avatar_url: avatarImage,
     };
     dispatch(editUserProfile(payload));
+    setBio("");
   };
 
   const editMyBannerImage = (e) => {
@@ -75,6 +75,13 @@ function User() {
         <span>{userProfile?.bio}</span>
         <span>{userProfile?.birthday}</span>
         <form onSubmit={editMyUserProfile}>
+          <input
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            type="text"
+            required
+            placeholder="Biography"
+          />
           <input
             type="file"
             accept="image/*"
