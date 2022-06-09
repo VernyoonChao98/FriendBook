@@ -21,5 +21,6 @@ class Post(db.Model):
             'content': self.content,
             'created_at': self.created_at,
             'edited': self.edited,
-            'comments': [comment.to_dict() for comment in self.comments]
+            'comments': [comment.to_dict() for comment in self.comments],
+            'user': self.user.to_dict()
         }

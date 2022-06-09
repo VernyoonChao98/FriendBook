@@ -4,16 +4,16 @@ import SignUpModal from "../auth/SignUpModal";
 
 function SplashPage() {
   return (
-    <div className="homepage__wrapper">
+    <div className="splashpage__wrapper">
       <div>
-        <div className="homepage__main__content">
-          <div className="homepage__text__container">
+        <div className="splashpage__main__content">
+          <div className="splashpage__text__container">
             <span className="friendbook__logo">friendbook</span>
-            <span className="homepage__text">
+            <span className="splashpage__text">
               Connect with friends and the world around you on Friendbook.
             </span>
           </div>
-          <div className="homepage__forms__container">
+          <div className="splashpage__forms__container">
             <LoginForm />
             <SignUpModal />
           </div>
