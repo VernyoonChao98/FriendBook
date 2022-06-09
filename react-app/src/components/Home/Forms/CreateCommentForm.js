@@ -1,14 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getAllPosts,
-  createAPost,
-  editAPost,
-  deleteAPost,
-  createAComment,
-  editAComment,
-  deleteAComment,
-} from "../../../store/post";
+import { createAComment } from "../../../store/post";
 
 function CreateCommentForm({ post }) {
   const dispatch = useDispatch();

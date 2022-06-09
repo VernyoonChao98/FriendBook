@@ -6,7 +6,7 @@ function DeleteCommentModal({ comment }) {
   const [showModal, setShowModal] = useState(false);
   return (
     <div>
-      <button onClick={() => setShowModal(true)}>DELETE This Comment</button>
+      <button onClick={() => setShowModal(true)}>DELETE Comment</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <DeleteCommentForm comment={comment} setShowModal={setShowModal} />
