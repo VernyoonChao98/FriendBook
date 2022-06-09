@@ -22,32 +22,34 @@ function Home() {
 
   return (
     isLoaded && (
-      <div>
-        <span>Home</span>
-        <CreatePostModal />
-        <div>
-          {Object.values(posts)
-            .reverse()
-            .map((post) => {
-              return (
-                <div key={post.id}>
-                  <span>{post.content}</span>
-                  <EditPostModal post={post} />
-                  <DeletePostModal post={post} />
-                  <CreateCommentForm post={post} />
-                  {Object.values(post.comments).map((comment) => {
-                    return (
-                      <div key={comment.id}>
-                        <span>{comment.user.username} </span>
-                        <span>{comment.content}</span>
-                        <EditCommentModal comment={comment} />
-                        <DeleteCommentModal comment={comment} />
-                      </div>
-                    );
-                  })}
-                </div>
-              );
-            })}
+      <div className="home__main__content">
+        <div className="home__middle_container">
+          <CreatePostModal />
+          <div className="home__all__post__container">
+            {Object.values(posts)
+              .reverse()
+              .map((post) => {
+                return (
+                  <div className="home__each__post__container" key={post.id}>
+                    <span>{post.user.username}</span>
+                    <span>{post.content}</span>
+                    <EditPostModal post={post} />
+                    <DeletePostModal post={post} />
+                    <CreateCommentForm post={post} />
+                    {Object.values(post.comments).map((comment) => {
+                      return (
+                        <div key={comment.id}>
+                          <span>{comment.user.username} </span>
+                          <span>{comment.content}</span>
+                          <EditCommentModal comment={comment} />
+                          <DeleteCommentModal comment={comment} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+          </div>
         </div>
       </div>
     )
