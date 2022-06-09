@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getAllPosts,
-  createAPost,
-  editAPost,
-  deleteAPost,
-  createAComment,
-  editAComment,
-  deleteAComment,
-} from "../../store/post";
+import { getAllPosts } from "../../store/post";
 
 import CreatePostModal from "./Modal/CreatePostModal";
 import EditPostModal from "./Modal/EditPostModal";
@@ -17,13 +9,11 @@ import CreateCommentForm from "./Forms/CreateCommentForm";
 import EditCommentModal from "./Modal/EditCommentModal";
 import DeleteCommentModal from "./Modal/DeleteCommentModal";
 
-// import { createAComment } from "../../store/comment";
-
 function Home() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const user = useSelector((state) => state.session.user);
   const posts = useSelector((state) => state.posts);
+
   useEffect(() => {
     dispatch(getAllPosts()).then(() => {
       setIsLoaded(true);
