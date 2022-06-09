@@ -147,10 +147,13 @@ const postReducer = (state = initialState, action) => {
     case ADD_A_POST:
       const newPost = action.payload;
       newState[newPost.id] = newPost;
+      newState[newPost.id].comments = {};
       return newState;
     case EDIT_A_POST:
       const editedPost = action.payload;
+      const oldComments = { ...newState[editedPost.id].comments };
       newState[editedPost.id] = editedPost;
+      newState[editedPost.id].comments = oldComments;
       return newState;
     case REMOVE_A_POST:
       const oldPost = action.payload;

@@ -13,7 +13,13 @@ const NavBar = () => {
         </li>
         <li>
           <NavLink to="/profile/1" exact={true} activeClassName="active">
-            Users
+            My Profile
+          </NavLink>
+          <NavLink to="/profile/2" exact={true} activeClassName="active">
+            Profile 2
+          </NavLink>
+          <NavLink to="/profile/3" exact={true} activeClassName="active">
+            Profile 3
           </NavLink>
         </li>
         <li>
