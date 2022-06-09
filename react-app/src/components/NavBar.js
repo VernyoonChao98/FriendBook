@@ -4,14 +4,16 @@ import LogoutButton from "./auth/LogoutButton";
 
 const NavBar = () => {
   return (
-    <nav>
-      <ul>
-        <li>
+    <nav className="nav__container">
+      <div>friendbook logo</div>
+      <div>
+        <div>
           <NavLink to="/" exact={true} activeClassName="active">
             Home
           </NavLink>
-        </li>
-        <li>
+        </div>
+        <div>placeholder for friends</div>
+        <div>
           <NavLink to="/profile/1" exact={true} activeClassName="active">
             My Profile
           </NavLink>
@@ -21,11 +23,11 @@ const NavBar = () => {
           <NavLink to="/profile/3" exact={true} activeClassName="active">
             Profile 3
           </NavLink>
-        </li>
-        <li>
-          <LogoutButton />
-        </li>
-      </ul>
+        </div>
+      </div>
+      <div>
+        <LogoutButton />
+      </div>
     </nav>
   );
 };
