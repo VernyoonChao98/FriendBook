@@ -72,6 +72,62 @@ export const deleteAPost = (payload) => async (dispatch) => {
   }
 };
 
+const CREATE_A_COMMENT = "/api/CREATE_A_COMMENT";
+const EDIT_A_COMMENT = "/api/EDIT_A_COMMENT";
+const DELETE_A_COMMENT = "/api/DELETE_A_COMMENT";
+
+const addComment = (payload) => ({
+  type: CREATE_A_COMMENT,
+  payload,
+});
+
+const editComment = (payload) => ({
+  type: EDIT_A_COMMENT,
+  payload,
+});
+
+const removeComment = (payload) => ({
+  type: DELETE_A_COMMENT,
+  payload,
+});
+
+export const createAComment = (payload) => async (dispatch) => {
+  const response = await fetch(`/api/comments/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  if (response.ok) {
+    const newComment = await response.json();
+    dispatch(addComment(newComment));
+  }
+};
+
+export const editAComment = (payload) => async (dispatch) => {
+  const response = await fetch(`/api/comments/${payload.commentId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  if (response.ok) {
+    const editedComment = await response.json();
+    dispatch(editComment(editedComment));
+  }
+};
+
+export const deleteAComment = (payload) => async (dispatch) => {
+  const response = await fetch(`/api/comments/${payload.commentId}`, {
+    method: "DELETE",
+  });
+
+  if (response.ok) {
+    const oldComment = await response.json();
+    dispatch(removeComment(oldComment));
+  }
+};
+
 const initialState = {};
 
 const postReducer = (state = initialState, action) => {
@@ -80,7 +136,12 @@ const postReducer = (state = initialState, action) => {
     case GET_ALL_POSTS:
       const posts = action.payload.posts;
       posts.forEach((post) => {
+        const comments = {};
         newState[post.id] = post;
+        newState[post.id].comments.forEach((comment) => {
+          comments[comment.id] = comment;
+        });
+        newState[post.id].comments = comments;
       });
       return newState;
     case ADD_A_POST:
@@ -94,6 +155,21 @@ const postReducer = (state = initialState, action) => {
     case REMOVE_A_POST:
       const oldPost = action.payload;
       delete newState[oldPost.id];
+      return newState;
+    case CREATE_A_COMMENT:
+      const newComment = action.payload;
+      let newCommentsObj = newState[newComment.post_id].comments;
+      newCommentsObj[newComment.id] = newComment;
+      return newState;
+    case EDIT_A_COMMENT:
+      const editComment = action.payload;
+      let editCommentsObj = newState[editComment.post_id].comments;
+      editCommentsObj[editComment.id] = editComment;
+      return newState;
+    case DELETE_A_COMMENT:
+      const oldComment = action.payload;
+      let oldCommentsObj = newState[oldComment.post_id].comments;
+      delete oldCommentsObj[oldComment.id];
       return newState;
     default:
       return state;
