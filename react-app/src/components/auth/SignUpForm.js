@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { signUp } from "../../store/session";
+import { months, years } from "./Utils";
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -90,6 +91,81 @@ const SignUpForm = () => {
             value={repeatPassword}
             required={true}
           ></input>
+        </div>
+        <div>
+          <label>Birthday</label>
+          <select
+            className="month__select"
+            // style={{ color: monthColor }}
+            // onFocus={() => setMonthColor("#dcddde")}
+            // onChange={() => setMonthColor("#dcddde")}
+            required
+          >
+            <option
+              className="option__placeholder"
+              value=""
+              disabled
+              selected
+              hidden
+            >
+              Select
+            </option>
+            {months.map((month) => {
+              return (
+                <option className="option__drop__down" key={month}>
+                  {month}
+                </option>
+              );
+            })}
+          </select>
+          <select
+            className="day__select"
+            // style={{ color: dayColor }}
+            // onFocus={() => setDayColor("#dcddde")}
+            // onChange={() => setDayColor("#dcddde")}
+            required
+          >
+            <option
+              className="option__placeholder"
+              value=""
+              disabled
+              selected
+              hidden
+            >
+              Select
+            </option>
+            {Array.apply(null, Array(31)).map(function (x, i) {
+              return (
+                <option className="option__drop__down" key={i}>
+                  {(i += 1)}
+                </option>
+              );
+            })}
+          </select>
+          <select
+            className="year__select"
+            // style={{ color: yearColor }}
+            // onFocus={() => setYearColor("#dcddde")}
+            // onChange={() => setYearColor("#dcddde")}
+            required
+          >
+            <option
+              className="option__placeholder"
+              value=""
+              disabled
+              selected
+              hidden
+            >
+              Select
+            </option>
+            {years.map((year) => {
+              return (
+                <option className="option__drop__down" key={year}>
+                  {year}
+                </option>
+              );
+            })}
+          </select>
         </div>
         <button type="submit">Sign Up</button>
       </form>
