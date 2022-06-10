@@ -11,7 +11,9 @@ function DeleteCommentModal({ comment }) {
         e.stopPropagation();
       }}
     >
-      <button onClick={() => setShowModal(true)}>DELETE Comment</button>
+      <button className="menu__post__button" onClick={() => setShowModal(true)}>
+        Delete comment
+      </button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <DeleteCommentForm comment={comment} setShowModal={setShowModal} />

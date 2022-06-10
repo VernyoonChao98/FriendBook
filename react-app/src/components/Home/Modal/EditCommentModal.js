@@ -11,7 +11,9 @@ function EditCommentModal({ setShowMenu, comment }) {
         e.stopPropagation();
       }}
     >
-      <button onClick={() => setShowModal(true)}>Edit Comment</button>
+      <button className="menu__post__button" onClick={() => setShowModal(true)}>
+        Edit comment
+      </button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <EditCommentForm

@@ -25,9 +25,11 @@ function MenuForComment({ comment }) {
 
   return (
     <div>
-      <button onClick={openMenu}>...</button>
+      <button className="menu__button" onClick={openMenu}>
+        ...
+      </button>
       {showMenu && (
-        <div>
+        <div className="menu__container">
           <EditCommentModal setShowMenu={setShowMenu} comment={comment} />
           <DeleteCommentModal comment={comment} />
         </div>
