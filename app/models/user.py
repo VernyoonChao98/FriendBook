@@ -14,8 +14,8 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     bio = db.Column(db.String(1000))
     birthday = db.Column(db.DateTime, nullable=False)
-    avatar_url = db.Column(db.String(255))
-    banner_url = db.Column(db.String(255))
+    avatar_url = db.Column(db.String(255), default="https://friendbookclone.s3.us-west-1.amazonaws.com/9687c30044d7432f8f9d9f84960459aa.jpg")
+    banner_url = db.Column(db.String(255), default="https://friendbookclone.s3.us-west-1.amazonaws.com/428321dce320492abfbbfdaf56d0a4f0.png")
 
     posts = db.relationship("Post", back_populates="user")
     comments = db.relationship("Comment", back_populates="user")
