@@ -408,5 +408,10 @@ body {
 .home__create__comment__press {
   font-size: 12px;
   margin-left: 20px;
-  width: 100%;
+}
+
+.home__comment__errors {
+  color: red;
+  font-size: 12px;
+  margin-left: 20px;
 }
