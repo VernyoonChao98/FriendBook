@@ -2,14 +2,23 @@ import React, { useState } from "react";
 import { Modal } from "../../../context/Modal";
 import EditCommentForm from "../Forms/EditCommentForm";
 
-function EditCommentModal({ comment }) {
+function EditCommentModal({ setShowMenu, comment }) {
   const [showModal, setShowModal] = useState(false);
   return (
-    <div>
+    <div
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
+    >
       <button onClick={() => setShowModal(true)}>Edit Comment</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <EditCommentForm comment={comment} setShowModal={setShowModal} />
+          <EditCommentForm
+            setShowMenu={setShowMenu}
+            comment={comment}
+            setShowModal={setShowModal}
+          />
         </Modal>
       )}
     </div>

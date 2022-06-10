@@ -171,6 +171,72 @@ body {
   top: 0;
 }
 
+.logo {
+  width: 50px;
+  height: 50px;
+  margin: 3px;
+  margin-left: 10px;
+  background: url("./components/Images/logo.svg") center no-repeat;
+}
+
+.navlinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home {
+  height: 56px;
+  width: 100px;
+  background: url("./components/Images/home.svg") center no-repeat;
+}
+
+.home:hover {
+  height: 53px;
+  width: 100px;
+  background-color: #d0d6dd;
+}
+
+.home__active {
+  height: 53px;
+  width: 100px;
+  background: url("./components/Images/homeActive.svg") center no-repeat;
+  border-bottom: 3px solid blue;
+}
+
+.profile {
+  height: 56px;
+  width: 100px;
+  background: url("./components/Images/profile.svg") center no-repeat;
+}
+
+.profile:hover {
+  height: 53px;
+  width: 100px;
+  background-color: #d0d6dd;
+}
+
+.profile__active {
+  height: 53px;
+  width: 100px;
+  background: url("./components/Images/profileActive.svg") center no-repeat;
+  border-bottom: 3px solid blue;
+}
+
+.logout__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout_door {
+  height: 30px;
+  width: 100px;
+  border: none;
+  cursor: pointer;
+  background: url("./components/Images/logoutDoor.svg") center no-repeat;
+}
+
 /* home page ------------------------------------------- */
 
 .home__main__content {
@@ -193,7 +259,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: white;
-  border-radius: max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px;
+  border-radius: 10px;
   margin-bottom: 16px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
   height: 80px;
@@ -215,7 +281,7 @@ body {
   background-color: #ebedf0;
 }
 
-.create__post__avatar {
+.home__avatar {
   height: 40px;
   width: 40px;
   border-radius: 40px;
@@ -223,14 +289,124 @@ body {
   border: 1px solid black;
 }
 
-.home__all__post__container {
-  border: 1px solid red;
+.comment_avatar {
+  height: 30px;
+  width: 30px;
+  border-radius: 40px;
+  margin-left: 10px;
+  border: 1px solid black;
 }
 
 .home__each__post__container {
   background: white;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   margin-bottom: 16px;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
-  border-radius: max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px;
+  border-radius: 10px;
+}
+
+.home__post__user__info {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid black;
+}
+
+.home__post__user__left {
+  display: flex;
+}
+
+.home__post__user__text {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+}
+
+.home__post__username__text {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.home__post__content {
+  overflow-wrap: break-word;
+  word-wrap: wrap;
+  padding: 15px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid black;
+}
+
+.home__post__comment__count {
+  text-align: end;
+}
+
+.home__each__comment__container {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.home__comment__user__left {
+  display: flex;
+}
+
+.home__comment__user__text {
+  display: flex;
+  flex-direction: column;
+}
+
+.home__comment__username__text {
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.home__comment__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home__comment__content {
+  display: flex;
+  flex-direction: column;
+  max-width: 550px;
+  width: fit-content;
+  overflow-wrap: break-word;
+  word-wrap: wrap;
+  padding: 16px;
+  margin: 0px 8px 8px 8px;
+  border-radius: 16px;
+  background-color: #e7e7e7;
+}
+
+.home__create__comment__form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home__create__comment__avatar {
+  height: 30px;
+  width: 30px;
+  border-radius: 40px;
+  margin-left: 10px;
+  border: 1px solid black;
+}
+
+.home__create__comment__input {
+  background-color: #e7e7e7;
+  width: 100%;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 16px;
+  border: none;
+  outline: none;
+}
+
+.home__create__comment__press {
+  font-size: 12px;
+  margin-left: 20px;
+  width: 100%;
 }

@@ -5,7 +5,12 @@ import DeletePostForm from "../Forms/DeletePostForm";
 function DeletePostModal({ post }) {
   const [showModal, setShowModal] = useState(false);
   return (
-    <div>
+    <div
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
+    >
       <button onClick={() => setShowModal(true)}>DELETE A POST</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>

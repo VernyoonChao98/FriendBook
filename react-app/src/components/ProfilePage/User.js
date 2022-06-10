@@ -8,6 +8,8 @@ import {
   cleanUserProfile,
 } from "../../store/userprofile";
 
+import { authenticate } from "../../store/session";
+
 function User() {
   const dispatch = useDispatch();
   const { userId } = useParams();
@@ -22,7 +24,6 @@ function User() {
     const payload = {
       userId,
     };
-
     dispatch(getUserProfile(payload)).then(() => {
       setIsLoaded(true);
     });

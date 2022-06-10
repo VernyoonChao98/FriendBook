@@ -21,15 +21,22 @@ function CreateCommentForm({ post }) {
 
   return (
     <div>
-      <form onSubmit={createComment}>
+      <form className="home__create__comment__form" onSubmit={createComment}>
+        <img
+          className="home__create__comment__avatar"
+          src={user.avatar_url}
+          alt="createCommentAvatar"
+        />
         <input
+          className="home__create__comment__input"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           type="text"
           required
+          placeholder="Write a comment..."
         />
       </form>
-      <span>Press Enter to post a comment.</span>
+      <span className="home__create__comment__press">Press Enter to post a comment.</span>
     </div>
   );
 }

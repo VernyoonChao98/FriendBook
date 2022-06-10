@@ -8,7 +8,11 @@ function CreatePostModal() {
   const [showModal, setShowModal] = useState(false);
   return (
     <div className="create__post__container">
-      <img className="create__post__avatar" src={user.avatar_url} />
+      <img
+        className="home__avatar"
+        src={user.avatar_url}
+        alt="createPostAvatar"
+      />
       <button onClick={() => setShowModal(true)}>What's on your mind?</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
