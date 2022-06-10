@@ -24,9 +24,6 @@ function CreateCommentForm({ post }) {
 
     if (validationErrors.length) {
       setErrors(validationErrors);
-      setTimeout(() => {
-        setErrors([]);
-      }, 4000);
       return;
     }
 
