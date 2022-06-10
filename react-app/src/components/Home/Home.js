@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import moment from "moment";
 
 import { getAllPosts } from "../../store/post";
 
@@ -47,7 +48,7 @@ function Home() {
                           >
                             {post.user.username}
                           </NavLink>
-                          <span>{post.created_at}</span>
+                          <span>{moment(post.created_at).format("lll")}</span>
                         </div>
                       </div>
                       {sessionUser.id === post.user_id ? (

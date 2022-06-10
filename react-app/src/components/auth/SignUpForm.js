@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { signUp } from "../../store/session";
 import { months, years } from "./Utils";
+import moment from "moment";
 
-const SignUpForm = () => {
+const SignUpForm = ({ setShowModal }) => {
+  const history = useHistory();
   const [errors, setErrors] = useState([]);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,12 +17,31 @@ const SignUpForm = () => {
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
 
+  let date = new Date();
+
+  const [month, setMonth] = useState(
+    moment(date).format("MMMM Do YYYY, h:mm:ss a").split(",")[0].split(" ")[0]
+  );
+  const [day, setDay] = useState("1");
+  const [year, setYear] = useState(
+    moment(date).format("MMMM Do YYYY, h:mm:ss a").split(",")[0].split(" ")[2]
+  );
+
   const onSignUp = async (e) => {
     e.preventDefault();
+
+    let birthday = new Date(`${day} ${month} ${year}`);
+    birthday = birthday.toISOString();
+
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
+      const data = await dispatch(
+        signUp(firstName, lastName, username, email, password, birthday)
+      );
       if (data) {
         setErrors(data);
+      } else {
+        setShowModal(false);
+        history.push("/home");
       }
     }
   };
@@ -54,6 +77,28 @@ const SignUpForm = () => {
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
           ))}
+        </div>
+        <div>
+          <label>First name</label>
+          <input
+            type="text"
+            name="FirstName"
+            onChange={(e) => {
+              setFirstName(e.target.value);
+            }}
+            value={firstName}
+          ></input>
+        </div>
+        <div>
+          <label>Last name</label>
+          <input
+            type="text"
+            name="LastName"
+            onChange={(e) => {
+              setLastName(e.target.value);
+            }}
+            value={lastName}
+          ></input>
         </div>
         <div>
           <label>User Name</label>
@@ -95,72 +140,45 @@ const SignUpForm = () => {
         <div>
           <label>Birthday</label>
           <select
-            className="month__select"
-            // style={{ color: monthColor }}
-            // onFocus={() => setMonthColor("#dcddde")}
-            // onChange={() => setMonthColor("#dcddde")}
+            value={month}
+            onChange={(e) => {
+              setMonth(e.target.value);
+            }}
             required
           >
-            <option
-              className="option__placeholder"
-              value=""
-              disabled
-              selected
-              hidden
-            >
-              Select
-            </option>
             {months.map((month) => {
               return (
-                <option className="option__drop__down" key={month}>
+                <option value={month} key={month}>
                   {month}
                 </option>
               );
             })}
           </select>
           <select
-            className="day__select"
-            // style={{ color: dayColor }}
-            // onFocus={() => setDayColor("#dcddde")}
-            // onChange={() => setDayColor("#dcddde")}
+            value={day}
+            onChange={(e) => {
+              setDay(e.target.value);
+            }}
             required
           >
-            <option
-              className="option__placeholder"
-              value=""
-              disabled
-              selected
-              hidden
-            >
-              Select
-            </option>
             {Array.apply(null, Array(31)).map(function (x, i) {
               return (
-                <option className="option__drop__down" key={i}>
-                  {(i += 1)}
+                <option value={(i += 1)} key={i}>
+                  {i}
                 </option>
               );
             })}
           </select>
           <select
-            className="year__select"
-            // style={{ color: yearColor }}
-            // onFocus={() => setYearColor("#dcddde")}
-            // onChange={() => setYearColor("#dcddde")}
+            value={year}
+            onChange={(e) => {
+              setYear(e.target.value);
+            }}
             required
           >
-            <option
-              className="option__placeholder"
-              value=""
-              disabled
-              selected
-              hidden
-            >
-              Select
-            </option>
             {years.map((year) => {
               return (
-                <option className="option__drop__down" key={year}>
+                <option value={year} key={year}>
                   {year}
                 </option>
               );
