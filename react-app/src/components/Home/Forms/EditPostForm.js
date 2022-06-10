@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editAPost } from "../../../store/post";
 
-function EditPostForm({ post, setShowModal }) {
+function EditPostForm({ setShowMenu, post, setShowModal }) {
   const dispatch = useDispatch();
 
   const [content, setContent] = useState(post.content);
@@ -16,6 +16,7 @@ function EditPostForm({ post, setShowModal }) {
 
     dispatch(editAPost(payload));
     setShowModal(false);
+    setShowMenu(false);
   };
 
   return (

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editAComment } from "../../../store/post";
 
-function EditCommentForm({ comment, setShowModal }) {
+function EditCommentForm({ setShowMenu, comment, setShowModal }) {
   const dispatch = useDispatch();
   const [content, setContent] = useState(comment.content);
 
@@ -15,12 +15,17 @@ function EditCommentForm({ comment, setShowModal }) {
 
     dispatch(editAComment(payload));
     setShowModal(false);
+    setShowMenu(false);
   };
 
   return (
     <div>
       <form onSubmit={editComment}>
         <input
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
           value={content}
           onChange={(e) => setContent(e.target.value)}
           type="text"
