@@ -60,7 +60,21 @@ function Home() {
                       <div>{post.content}</div>
                       <div>
                         <div className="home__post__comment__count">
-                          {Object.values(post.comments).length} Comments
+                          {Object.values(post.comments).length === 0 ? (
+                            <></>
+                          ) : (
+                            <>
+                              {Object.values(post.comments).length === 1 ? (
+                                <>
+                                  {Object.values(post.comments).length} Comment
+                                </>
+                              ) : (
+                                <>
+                                  {Object.values(post.comments).length} Comments
+                                </>
+                              )}
+                            </>
+                          )}
                         </div>
                       </div>
                     </div>
