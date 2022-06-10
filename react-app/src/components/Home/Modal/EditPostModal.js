@@ -11,7 +11,7 @@ function EditPostModal({ setShowMenu, post }) {
         e.stopPropagation();
       }}
     >
-      <button onClick={() => setShowModal(true)}>Edit Post</button>
+      <button className="menu__post__button" onClick={() => setShowModal(true)}>Edit post</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <EditPostForm

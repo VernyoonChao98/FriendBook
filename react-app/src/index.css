@@ -378,7 +378,7 @@ body {
   padding: 16px;
   margin: 0px 8px 8px 8px;
   border-radius: 16px;
-  background-color: #e7e7e7;
+  background-color: #f0efef;
 }
 
 .home__create__comment__form {
@@ -414,4 +414,36 @@ body {
   color: red;
   font-size: 12px;
   margin-left: 20px;
+}
+
+.menu__button {
+  all: unset;
+  transform: translateY(-10px);
+  align-items: center;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.menu__container {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  border-radius: 6px;
+  transform: translateX(-60px);
+  border: 1px solid rgba(0, 0, 0, 0);
+  background-color: #ebe9e9;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+  /* border: 1px solid black; */
+}
+
+.menu__post__button {
+  all: unset;
+  width: 100%;
+  text-align: center;
+  border-radius: 6px;
+}
+
+.menu__post__button:hover {
+  background-color: #d4d3d3;
 }

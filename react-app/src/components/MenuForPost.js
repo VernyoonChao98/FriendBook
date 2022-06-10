@@ -25,9 +25,11 @@ function MenuForPost({ post }) {
 
   return (
     <div>
-      <button onClick={openMenu}>...</button>
+      <button className="menu__button" onClick={openMenu}>
+        ...
+      </button>
       {showMenu && (
-        <div>
+        <div className="menu__container">
           <EditPostModal setShowMenu={setShowMenu} post={post} />
           <DeletePostModal post={post} />
         </div>

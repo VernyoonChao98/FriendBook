@@ -11,7 +11,9 @@ function DeletePostModal({ post }) {
         e.stopPropagation();
       }}
     >
-      <button onClick={() => setShowModal(true)}>DELETE A POST</button>
+      <button className="menu__post__button" onClick={() => setShowModal(true)}>
+        Delete post
+      </button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <DeletePostForm post={post} setShowModal={setShowModal} />
