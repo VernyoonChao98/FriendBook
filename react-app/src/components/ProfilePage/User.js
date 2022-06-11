@@ -19,6 +19,7 @@ function User() {
   const [bio, setBio] = useState("");
   const [avatarImage, setAvatarImage] = useState();
   const [bannerImage, setBannerImage] = useState();
+  const [previewUrl, setPreviewUrl] = useState();
 
   useEffect(() => {
     const payload = {
@@ -54,6 +55,17 @@ function User() {
 
     dispatch(editBannerImage(payload));
   };
+
+  // const updateImage = (e) => {
+  //   console.log(e.target.files, "this is line 47");
+  //   const file = e.target.files[0];
+  //   setImgUrl(file);
+  //   setShowModal(true);
+  //   if (file) {
+  //     setPreviewUrl(URL.createObjectURL(file));
+  //   }
+  //   setSubmitted(true);
+  // };
 
   const updateAvatarImage = (e) => {
     const file = e.target.files[0];
