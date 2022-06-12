@@ -1,26 +1,24 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { createAPost } from "../../../store/post";
+import { useDispatch } from "react-redux";
+import { editAComment } from "../../store/post";
 
-function CreatePostForm({ setShowModal }) {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user);
-
-  const [content, setContent] = useState("");
+function EditCommentForm({ setShowMenu, comment, setShowModal }) {
+  const [content, setContent] = useState(comment.content);
   const [errors, setErrors] = useState([]);
 
-  const createPost = (e) => {
+  const dispatch = useDispatch();
+  const editComment = (e) => {
     e.preventDefault();
     setErrors([]);
 
     const validationErrors = [];
 
     if (!content.length) {
-      validationErrors.push("Post can not be Empty!");
+      validationErrors.push("Comment can not be Empty!");
     }
 
     if (content.length > 1000) {
-      validationErrors.push("Post exceeds character limit 1000.");
+      validationErrors.push("Comment exceeds character limit 1000.");
     }
 
     if (validationErrors.length) {
@@ -29,23 +27,30 @@ function CreatePostForm({ setShowModal }) {
     }
 
     const payload = {
-      user_id: user.id,
+      commentId: comment.id,
       content,
     };
 
-    dispatch(createAPost(payload));
+    dispatch(editAComment(payload));
     setShowModal(false);
+    setShowMenu(false);
   };
 
   return (
-    <div>
-      <form className="create__post__wrapper" onSubmit={createPost}>
+    <div
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
+    >
+      <form className="create__post__wrapper" onSubmit={editComment}>
         <div className="create__post__header__container">
-          <div className="create__post__header">Create Post</div>
+          <div className="create__post__header">Edit Comment</div>
           <button
             className="close__modal"
             onClick={() => {
               setShowModal(false);
+              setShowMenu(false);
             }}
           >
             X
@@ -64,7 +69,6 @@ function CreatePostForm({ setShowModal }) {
           rows={10}
           cols={35}
           required
-          wrap="soft"
           maxLength={1001}
           placeholder="Whats on your mind?"
         />
@@ -73,12 +77,12 @@ function CreatePostForm({ setShowModal }) {
             {error}
           </div>
         ))}
-        <button className="create__post__text__button" onClick={createPost}>
-          Post
+        <button className="create__post__text__button" onClick={editComment}>
+          Edit
         </button>
       </form>
     </div>
   );
 }
 
-export default CreatePostForm;
+export default EditCommentForm;

@@ -5,6 +5,7 @@ const GET_ALL_POSTS = "/api/GET_ALL_POSTS";
 const ADD_A_POST = "/api/ADD_A_POST";
 const EDIT_A_POST = "/api/EDIT_A_POST";
 const REMOVE_A_POST = "/api/REMOVE_A_POST";
+const CLEAN_POST = "/api/CLEAN_POST";
 
 const loadPosts = (payload) => ({
   type: GET_ALL_POSTS,
@@ -26,8 +27,21 @@ const removePost = (payload) => ({
   payload,
 });
 
+export const cleanPost = () => ({
+  type: CLEAN_POST,
+});
+
 export const getAllPosts = () => async (dispatch) => {
   const response = await fetch("/api/posts/");
+
+  if (response.ok) {
+    const posts = await response.json();
+    dispatch(loadPosts(posts));
+  }
+};
+
+export const getUsersPosts = (payload) => async (dispatch) => {
+  const response = await fetch(`/api/posts/${payload.userId}`);
 
   if (response.ok) {
     const posts = await response.json();
@@ -159,6 +173,8 @@ const postReducer = (state = initialState, action) => {
       const oldPost = action.payload;
       delete newState[oldPost.id];
       return newState;
+    case CLEAN_POST:
+      return initialState;
     case CREATE_A_COMMENT:
       const newComment = action.payload;
       let newCommentsObj = newState[newComment.post_id].comments;

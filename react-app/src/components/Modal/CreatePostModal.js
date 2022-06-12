@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Modal } from "../../../context/Modal";
+import { Modal } from "../../context/Modal";
 import CreatePostForm from "../Forms/CreatePostForm";
 
 function CreatePostModal() {

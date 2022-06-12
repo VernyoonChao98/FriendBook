@@ -10,6 +10,11 @@ def get_all_posts():
     posts = Post.query.all()
     return { "posts": [post.to_dict() for post in posts]}
 
+@post_routes.route("/<int:id>")
+def get_all_users_posts(id):
+    posts = Post.query.filter(Post.user_id == id).all()
+    return { "posts": [post.to_dict() for post in posts]}
+
 @post_routes.route("/", methods=["POST"])
 def create_post():
     form = PostCreateForm()

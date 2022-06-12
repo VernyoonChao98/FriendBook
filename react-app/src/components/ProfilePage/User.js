@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 import {
   getUserProfile,
   editUserProfile,
   editBannerImage,
   cleanUserProfile,
 } from "../../store/userprofile";
+import { getUsersPosts, cleanPost } from "../../store/post";
 
-import { authenticate } from "../../store/session";
+import { getUser } from "../../store/session";
+
+import CreatePostModal from "../Modal/CreatePostModal";
+
+import Posts from "../Posts";
 
 function User() {
   const dispatch = useDispatch();
@@ -19,17 +25,22 @@ function User() {
   const [bio, setBio] = useState("");
   const [avatarImage, setAvatarImage] = useState();
   const [bannerImage, setBannerImage] = useState();
-  const [previewUrl, setPreviewUrl] = useState();
+  // const [previewUrl, setPreviewUrl] = useState();
 
   useEffect(() => {
     const payload = {
       userId,
     };
-    dispatch(getUserProfile(payload)).then(() => {
-      setIsLoaded(true);
-    });
+    dispatch(getUserProfile(payload))
+      .then(() => {
+        dispatch(getUsersPosts(payload));
+      })
+      .then(() => {
+        setIsLoaded(true);
+      });
 
     return () => {
+      dispatch(cleanPost());
       dispatch(cleanUserProfile());
       setIsLoaded(false);
     };
@@ -37,12 +48,21 @@ function User() {
 
   const editMyUserProfile = (e) => {
     e.preventDefault();
+
     const payload = {
       userId,
       bio,
       avatar_url: avatarImage,
     };
-    dispatch(editUserProfile(payload));
+    dispatch(editUserProfile(payload)).then(() => {
+      if (parseInt(userId) === userProfile.id) {
+        const payload = {
+          userId,
+        };
+        dispatch(getUser(payload));
+        dispatch(getUsersPosts(payload));
+      }
+    });
     setBio("");
   };
 
@@ -80,36 +100,69 @@ function User() {
   return (
     isLoaded && (
       <div>
-        <span>{userProfile?.firstname}</span>
-        <img src={userProfile?.avatar_url} alt="avatar"></img>
-        <img src={userProfile?.banner_url} alt="banner"></img>
-        <span>{userProfile?.lastname}</span>
-        <span>{userProfile?.username}</span>
-        <span>{userProfile?.bio}</span>
-        <span>{userProfile?.birthday}</span>
-        <form onSubmit={editMyUserProfile}>
-          <input
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-            type="text"
-            required
-            placeholder="Biography"
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={updateAvatarImage}
-          ></input>
-          <button onClick={editMyUserProfile}>Edit Profile</button>
-        </form>
-        <form onSubmit={editMyBannerImage}>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={updateBannerImage}
-          ></input>
-          <button onClick={editMyBannerImage}>Edit Banner</button>
-        </form>
+        <div className="userprofile__top__container">
+          <div className="userprofile__top__banner__container">
+            <img
+              className="userprofile__top__banner"
+              src={userProfile?.banner_url}
+              alt="banner"
+            ></img>
+          </div>
+          <div className="userprofile__top__user__info__container">
+            <div className="test">
+              <img
+                className="userprofile__top__avatar"
+                src={userProfile?.avatar_url}
+                alt="avatar"
+              ></img>
+              <div>
+                <span className="userprofile__top__username">
+                  {userProfile?.username}
+                </span>
+                <span className="">0 friends</span>
+              </div>
+            </div>
+            <form onSubmit={editMyBannerImage}>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={updateBannerImage}
+              ></input>
+              <button onClick={editMyBannerImage}>Edit Banner</button>
+            </form>
+            <button>Edit banner button for modal eventually</button>
+          </div>
+        </div>
+        <div className="userprofile__main__content__container">
+          <div className="userprofile__main__content__bio">
+            <span>Intro</span>
+            <span>
+              Name: {userProfile?.firstname} {userProfile?.lastname}
+            </span>
+            <span>Bio: {userProfile?.bio}asdasdascac aczxcsazdxfqasdas</span>
+            <span>Birthday: {moment(userProfile?.birthday).format("L")}</span>
+            <form onSubmit={editMyUserProfile}>
+              <input
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
+                type="text"
+                required
+                placeholder="Biography"
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={updateAvatarImage}
+              ></input>
+              <button onClick={editMyUserProfile}>Edit Profile</button>
+              <button>button to open edit profile modal eventually</button>
+            </form>
+          </div>
+          <div className="userprofile__all__user__posts">
+            <CreatePostModal />
+            <Posts />
+          </div>
+        </div>
       </div>
     )
   );

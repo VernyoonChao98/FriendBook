@@ -169,6 +169,7 @@ body {
   justify-content: space-between;
   background-color: white;
   top: 0;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .logo {
@@ -364,17 +365,16 @@ body {
 
 .home__comment__container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  width: 100%;
 }
 
 .home__comment__content {
   display: flex;
   flex-direction: column;
-  max-width: 550px;
-  width: fit-content;
   overflow-wrap: break-word;
-  word-wrap: wrap;
+  word-break: break-all;
   padding: 16px;
   margin: 0px 8px 8px 8px;
   border-radius: 16px;
@@ -422,6 +422,7 @@ body {
   align-items: center;
   font-weight: bold;
   font-size: 20px;
+  margin-right: 5px;
   cursor: pointer;
 }
 
@@ -503,4 +504,87 @@ body {
   background-color: #1877f2;
   border: none;
   cursor: pointer;
+}
+
+/* userprofile -------------------------------------------------- */
+
+.userprofile__top__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: 100%;
+  padding-bottom: 20px;
+  box-shadow: 0px 2px 5px rgb(0 0 0 / 20%);
+}
+
+.userprofile__top__banner__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1100px;
+  height: 400px;
+}
+
+.userprofile__top__banner {
+  width: 100%;
+  height: 100%;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.userprofile__top__user__info__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 1000px;
+}
+
+.userprofile__top__avatar {
+  height: 150px;
+  width: 150px;
+  border-radius: 150px;
+  border: 4px solid white;
+  margin-top: -60px;
+}
+
+.test {
+  display: flex;
+  flex-direction: row;
+}
+
+.userprofile__top__username {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-left: 10px;
+  margin-top: 20px;
+}
+
+.userprofile__main__content__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 20px;
+}
+
+.userprofile__main__content__bio {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  height: fit-content;
+  background-color: white;
+  top: 70px;
+  width: 430px;
+  padding: 15px;
+  margin-right: 20px;
+  box-shadow: 0px 2px 5px rgb(0 0 0 / 20%);
+  border-radius: 10px;
+}
+
+.userprofile__all__user__posts {
+  width: 600px;
 }

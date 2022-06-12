@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import EditPostModal from "./Home/Modal/EditPostModal";
-import DeletePostModal from "./Home/Modal/DeletePostModal";
+import EditCommentModal from "../Modal/EditCommentModal";
+import DeleteCommentModal from "../Modal/DeleteCommentModal";
 
-function MenuForPost({ post }) {
+function MenuForComment({ comment }) {
   const [showMenu, setShowMenu] = useState(false);
 
   const openMenu = () => {
@@ -30,12 +30,12 @@ function MenuForPost({ post }) {
       </button>
       {showMenu && (
         <div className="menu__container">
-          <EditPostModal setShowMenu={setShowMenu} post={post} />
-          <DeletePostModal post={post} />
+          <EditCommentModal setShowMenu={setShowMenu} comment={comment} />
+          <DeleteCommentModal comment={comment} />
         </div>
       )}
     </div>
   );
 }
 
-export default MenuForPost;
+export default MenuForComment;

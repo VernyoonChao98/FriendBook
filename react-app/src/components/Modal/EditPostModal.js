@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Modal } from "../../../context/Modal";
-import EditCommentForm from "../Forms/EditCommentForm";
+import { Modal } from "../../context/Modal";
+import EditPostForm from "../Forms/EditPostForm";
 
-function EditCommentModal({ setShowMenu, comment }) {
+function EditPostModal({ setShowMenu, post }) {
   const [showModal, setShowModal] = useState(false);
   return (
     <div>
@@ -14,13 +14,13 @@ function EditCommentModal({ setShowMenu, comment }) {
           setShowModal(true);
         }}
       >
-        Edit comment
+        Edit post
       </button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <EditCommentForm
+          <EditPostForm
             setShowMenu={setShowMenu}
-            comment={comment}
+            post={post}
             setShowModal={setShowModal}
           />
         </Modal>
@@ -29,4 +29,4 @@ function EditCommentModal({ setShowMenu, comment }) {
   );
 }
 
-export default EditCommentModal;
+export default EditPostModal;

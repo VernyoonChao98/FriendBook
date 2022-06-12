@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteAComment } from "../../../store/post";
+import { deleteAComment } from "../../store/post";
 
 function DeleteCommentForm({ comment, setShowModal }) {
   const dispatch = useDispatch();

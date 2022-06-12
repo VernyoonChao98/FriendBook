@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createAComment } from "../../../store/post";
+import { createAComment } from "../../store/post";
 
 function CreateCommentForm({ post }) {
   const dispatch = useDispatch();

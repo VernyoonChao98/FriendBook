@@ -13,6 +13,15 @@ const removeUser = () => ({
 
 const initialState = { user: null };
 
+export const getUser = (payload) => async (dispatch) => {
+  const response = await fetch(`/api/users/${payload.userId}`);
+
+  if (response.ok) {
+    const user = await response.json();
+    dispatch(setUser(user));
+  }
+};
+
 export const authenticate = () => async (dispatch) => {
   const response = await fetch("/api/auth/", {
     headers: {
@@ -102,6 +111,7 @@ export const signUp =
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
+      console.log(action.payload);
       return { user: action.payload };
     case REMOVE_USER:
       return { user: null };

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editAPost } from "../../../store/post";
+import { editAPost } from "../../store/post";
 
 function EditPostForm({ setShowMenu, post, setShowModal }) {
   const dispatch = useDispatch();
