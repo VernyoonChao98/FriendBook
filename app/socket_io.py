@@ -29,18 +29,15 @@ def turn_online(data):
 
 @socketio.on('join')
 def on_join(data):
-    username = data['username']
-    room = data['room']
-    msg = f"{username} has joined room"
-    newData = {"user": username, "msg": msg}
+    room = data['roomUrl']
     join_room(room)
-    emit("chat", newData, to=room)
 
 @socketio.on('leave')
 def on_leave(data):
-    username = data['username']
-    room = data['room']
-    msg = f"{username} has left the room"
-    newData = {"user": username, "msg": msg}
+    room = data['roomUrl']
     leave_room(room)
-    emit("chat", newData, to=room)
+
+@socketio.on('updatedProfile')
+def updated_profile(data):
+    room = data['roomUrl']
+    emit("updatedProfile", data, to=room)
