@@ -5,13 +5,15 @@ import DeleteCommentForm from "../Forms/DeleteCommentForm";
 function DeleteCommentModal({ comment }) {
   const [showModal, setShowModal] = useState(false);
   return (
-    <div
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-      }}
-    >
-      <button className="menu__post__button" onClick={() => setShowModal(true)}>
+    <div>
+      <button
+        className="menu__post__button"
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setShowModal(true);
+        }}
+      >
         Delete comment
       </button>
       {showModal && (

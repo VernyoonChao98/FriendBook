@@ -442,6 +442,7 @@ body {
   width: 100%;
   text-align: center;
   border-radius: 6px;
+  cursor: pointer;
 }
 
 .menu__post__button:hover {
@@ -454,6 +455,7 @@ body {
   justify-content: space-around;
   align-items: center;
   min-height: 420px;
+  padding: 5px;
 }
 
 .create__post__header__container {
@@ -504,6 +506,16 @@ body {
   background-color: #1877f2;
   border: none;
   cursor: pointer;
+}
+
+.post__delete__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
+  height: 150px;
+  padding: 5px;
 }
 
 /* userprofile -------------------------------------------------- */
