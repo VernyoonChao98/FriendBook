@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import { io } from "socket.io-client";
+
 import {
   getUserProfile,
   editUserProfile,
@@ -16,9 +18,12 @@ import CreatePostModal from "../Modal/CreatePostModal";
 
 import Posts from "../Posts";
 
+let socket;
+
 function User() {
   const dispatch = useDispatch();
   const { userId } = useParams();
+  const sessionUser = useSelector((state) => state.session.user);
   const userProfile = useSelector((state) => state.userprofile)[userId];
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -27,10 +32,31 @@ function User() {
   const [bannerImage, setBannerImage] = useState();
   // const [previewUrl, setPreviewUrl] = useState();
 
+  const roomUrl = window.location.pathname;
+
   useEffect(() => {
+    socket = io();
+
+    const socketPayload = {
+      roomUrl,
+    };
+
     const payload = {
       userId,
     };
+
+    socket.emit("join", socketPayload);
+
+    socket.on("updatedProfile", async (payload) => {
+      console.log("owner changed profile");
+      if (parseInt(payload.userId) !== sessionUser.id) {
+        console.log("not the owner and others will update their thing");
+        dispatch(getUserProfile(payload)).then(() => {
+          dispatch(getUsersPosts(payload));
+        });
+      }
+    });
+
     dispatch(getUserProfile(payload))
       .then(() => {
         dispatch(getUsersPosts(payload));
@@ -43,26 +69,32 @@ function User() {
       dispatch(cleanPost());
       dispatch(cleanUserProfile());
       setIsLoaded(false);
+      socket.emit("leave", socketPayload);
+      socket.disconnect();
     };
   }, [dispatch, userId]);
 
-  const editMyUserProfile = (e) => {
+  const editMyUserProfile = async (e) => {
     e.preventDefault();
 
     const payload = {
       userId,
       bio,
       avatar_url: avatarImage,
+      roomUrl,
     };
-    dispatch(editUserProfile(payload)).then(() => {
+
+    await dispatch(editUserProfile(payload)).then(async () => {
       if (parseInt(userId) === userProfile.id) {
         const payload = {
           userId,
         };
-        dispatch(getUser(payload));
-        dispatch(getUsersPosts(payload));
+        await dispatch(getUser(payload));
+        await dispatch(getUsersPosts(payload));
       }
     });
+
+    await socket.emit("updatedProfile", payload);
     setBio("");
   };
 
@@ -139,7 +171,7 @@ function User() {
             <span>
               Name: {userProfile?.firstname} {userProfile?.lastname}
             </span>
-            <span>Bio: {userProfile?.bio}asdasdascac aczxcsazdxfqasdas</span>
+            <span>Bio: {userProfile?.bio}</span>
             <span>Birthday: {moment(userProfile?.birthday).format("L")}</span>
             <form onSubmit={editMyUserProfile}>
               <input
