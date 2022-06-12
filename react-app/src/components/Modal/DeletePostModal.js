@@ -5,13 +5,15 @@ import DeletePostForm from "../Forms/DeletePostForm";
 function DeletePostModal({ post }) {
   const [showModal, setShowModal] = useState(false);
   return (
-    <div
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-      }}
-    >
-      <button className="menu__post__button" onClick={() => setShowModal(true)}>
+    <div>
+      <button
+        className="menu__post__button"
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setShowModal(true);
+        }}
+      >
         Delete post
       </button>
       {showModal && (
