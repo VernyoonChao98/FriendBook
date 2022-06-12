@@ -11,7 +11,7 @@ function EditUserProfileForm({ socket, setShowModal }) {
   const { userId } = useParams();
   const userProfile = useSelector((state) => state.userprofile)[userId];
 
-  const [bio, setBio] = useState("");
+  const [bio, setBio] = useState(userProfile.bio);
   const [avatarImage, setAvatarImage] = useState();
 
   const roomUrl = window.location.pathname;
