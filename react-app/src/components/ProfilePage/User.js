@@ -6,15 +6,14 @@ import { io } from "socket.io-client";
 
 import {
   getUserProfile,
-  editUserProfile,
   editBannerImage,
   cleanUserProfile,
 } from "../../store/userprofile";
+
 import { getUsersPosts, cleanPost } from "../../store/post";
 
-import { getUser } from "../../store/session";
-
 import CreatePostModal from "../Modal/CreatePostModal";
+import EditUserProfileModal from "../Modal/EditUserProfileModal";
 
 import Posts from "../Posts";
 
@@ -27,8 +26,6 @@ function User() {
   const userProfile = useSelector((state) => state.userprofile)[userId];
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const [bio, setBio] = useState("");
-  const [avatarImage, setAvatarImage] = useState();
   const [bannerImage, setBannerImage] = useState();
   // const [previewUrl, setPreviewUrl] = useState();
 
@@ -72,31 +69,7 @@ function User() {
       socket.emit("leave", socketPayload);
       socket.disconnect();
     };
-  }, [dispatch, userId]);
-
-  const editMyUserProfile = async (e) => {
-    e.preventDefault();
-
-    const payload = {
-      userId,
-      bio,
-      avatar_url: avatarImage,
-      roomUrl,
-    };
-
-    await dispatch(editUserProfile(payload)).then(async () => {
-      if (parseInt(userId) === userProfile.id) {
-        const payload = {
-          userId,
-        };
-        await dispatch(getUser(payload));
-        await dispatch(getUsersPosts(payload));
-      }
-    });
-
-    await socket.emit("updatedProfile", payload);
-    setBio("");
-  };
+  }, [dispatch, userId, roomUrl, sessionUser.id]);
 
   const editMyBannerImage = (e) => {
     e.preventDefault();
@@ -118,11 +91,6 @@ function User() {
   //   }
   //   setSubmitted(true);
   // };
-
-  const updateAvatarImage = (e) => {
-    const file = e.target.files[0];
-    setAvatarImage(file);
-  };
 
   const updateBannerImage = (e) => {
     const file = e.target.files[0];
@@ -173,25 +141,12 @@ function User() {
             </span>
             <span>Bio: {userProfile?.bio}</span>
             <span>Birthday: {moment(userProfile?.birthday).format("L")}</span>
-            <form onSubmit={editMyUserProfile}>
-              <input
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-                type="text"
-                required
-                placeholder="Biography"
-              />
-              <input
-                type="file"
-                accept="image/*"
-                onChange={updateAvatarImage}
-              ></input>
-              <button onClick={editMyUserProfile}>Edit Profile</button>
-              <button>button to open edit profile modal eventually</button>
-            </form>
+            {sessionUser.id === userProfile.id ? (
+              <EditUserProfileModal socket={socket} />
+            ) : null}
           </div>
           <div className="userprofile__all__user__posts">
-            <CreatePostModal />
+            {sessionUser.id === userProfile.id ? <CreatePostModal /> : null}
             <Posts />
           </div>
         </div>

@@ -1,9 +1,28 @@
-import React from 'react'
+import React, { useState } from "react";
+import { Modal } from "../../context/Modal";
+import EditUserProfileForm from "../Forms/EditUserProfileForm";
 
-function EditUserProfileModal() {
+function EditUserProfileModal({ socket }) {
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <div>EditUserProfileModal</div>
-  )
+    <div>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setShowModal(true);
+        }}
+      >
+        Edit Profile
+      </button>
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)}>
+          <EditUserProfileForm socket={socket} setShowModal={setShowModal} />
+        </Modal>
+      )}
+    </div>
+  );
 }
 
-export default EditUserProfileModal
+export default EditUserProfileModal;
