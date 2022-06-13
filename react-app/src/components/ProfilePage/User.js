@@ -128,7 +128,11 @@ function User() {
             <div className="userprofile__main__content__header__container">
               <span className="userprofile__main__content__header">Bio</span>
               <span className="userprofile__main__content__bio__content">
-                {userProfile.bio}
+                {userProfile.bio.length === 0 ? (
+                  <>Add A Bio</>
+                ) : (
+                  <>{userProfile.bio}</>
+                )}
               </span>
             </div>
             <div className="userprofile__main__content__header__container">

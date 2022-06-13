@@ -8,6 +8,7 @@ function EditUserProfileModal({ socket }) {
   return (
     <div>
       <button
+        className="edit__profile__button"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
