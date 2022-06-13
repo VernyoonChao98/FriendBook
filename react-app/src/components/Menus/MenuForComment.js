@@ -29,7 +29,7 @@ function MenuForComment({ comment }) {
         ...
       </button>
       {showMenu && (
-        <div className="menu__container">
+        <div className="menu__container__comments">
           <EditCommentModal setShowMenu={setShowMenu} comment={comment} />
           <DeleteCommentModal comment={comment} />
         </div>
