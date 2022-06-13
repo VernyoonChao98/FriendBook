@@ -69,7 +69,19 @@ function User() {
       }
     });
 
+    socket.on("editPost", async () => {
+      console.log("someoneEdited post");
+      if (parseInt(payload.userId) !== sessionUser.id) {
+        console.log("not the owner and others will update their thing");
+        dispatch(getUsersPosts(payload));
+      }
+    });
+
     socket.on("createComment", async () => {
+      dispatch(getUsersPosts(payload));
+    });
+
+    socket.on("editComment", async () => {
       dispatch(getUsersPosts(payload));
     });
 
@@ -87,6 +99,7 @@ function User() {
       setIsLoaded(false);
       socket.emit("leave", socketPayload);
       socket.disconnect();
+      console.log("unmounted");
     };
   }, [dispatch, userId, roomUrl, sessionUser.id]);
 
@@ -108,7 +121,7 @@ function User() {
           <div className="userprofile__top__banner__container">
             <img
               className="userprofile__top__banner"
-              src={userProfile.banner_url}
+              src={userProfile?.banner_url}
               alt="banner"
             ></img>
           </div>
@@ -116,17 +129,17 @@ function User() {
             <div className="test">
               <img
                 className="userprofile__top__avatar"
-                src={userProfile.avatar_url}
+                src={userProfile?.avatar_url}
                 alt="avatar"
               ></img>
               <div>
                 <span className="userprofile__top__username">
-                  {userProfile.username}
+                  {userProfile?.username}
                 </span>
                 <span className="">0 friends</span>
               </div>
             </div>
-            {sessionUser.id === userProfile.id ? (
+            {sessionUser?.id === userProfile?.id ? (
               <EditUserBannerModal socket={socket} />
             ) : null}
           </div>
@@ -158,12 +171,12 @@ function User() {
                 {moment(userProfile?.birthday).format("L")}
               </span>
             </div>
-            {sessionUser.id === userProfile.id ? (
+            {sessionUser?.id === userProfile?.id ? (
               <EditUserProfileModal socket={socket} />
             ) : null}
           </div>
           <div className="userprofile__all__user__posts">
-            {sessionUser.id === userProfile.id ? (
+            {sessionUser?.id === userProfile?.id ? (
               <CreatePostModal socket={socket} />
             ) : null}
             <Posts socket={socket} />

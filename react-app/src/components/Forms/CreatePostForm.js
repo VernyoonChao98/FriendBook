@@ -9,13 +9,17 @@ function CreatePostForm({ socket, setShowModal }) {
   const [content, setContent] = useState("");
   const [errors, setErrors] = useState([]);
 
-  const roomUrl = window.location.pathname;
+  let roomUrl = window.location.pathname;
 
   const createPost = async (e) => {
     e.preventDefault();
     setErrors([]);
 
     const validationErrors = [];
+
+    if (roomUrl === "/home") {
+      roomUrl = `/profile/${user.id}`;
+    }
 
     if (!content.length) {
       validationErrors.push("Post can not be Empty!");
@@ -39,6 +43,7 @@ function CreatePostForm({ socket, setShowModal }) {
     await dispatch(createAPost(payload));
 
     await socket.emit("createPost", payload);
+    await socket.emit("createPostHome", payload);
 
     setShowModal(false);
   };

@@ -32,11 +32,17 @@ function Posts({ socket }) {
                     >
                       {post.user.username}
                     </NavLink>
-                    <span>{moment(post.created_at).format("lll")}</span>
+                    {post.edited === false ? (
+                      <span>{moment(post.created_at).format("lll")}</span>
+                    ) : (
+                      <span>
+                        {moment(post.created_at).format("lll")} (edited)
+                      </span>
+                    )}
                   </div>
                 </div>
                 {sessionUser.id === post.user_id ? (
-                  <MenuForPost post={post} />
+                  <MenuForPost socket={socket} post={post} />
                 ) : (
                   <></>
                 )}
@@ -96,7 +102,11 @@ function Posts({ socket }) {
                         </div>
                         <div>
                           {sessionUser.id === comment.user_id ? (
-                            <MenuForComment comment={comment} />
+                            <MenuForComment
+                              socket={socket}
+                              post={post}
+                              comment={comment}
+                            />
                           ) : (
                             <></>
                           )}

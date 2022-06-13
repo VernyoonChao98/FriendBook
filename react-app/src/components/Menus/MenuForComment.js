@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import EditCommentModal from "../Modal/EditCommentModal";
 import DeleteCommentModal from "../Modal/DeleteCommentModal";
 
-function MenuForComment({ comment }) {
+function MenuForComment({ socket, post, comment }) {
   const [showMenu, setShowMenu] = useState(false);
 
   const openMenu = () => {
@@ -30,7 +30,12 @@ function MenuForComment({ comment }) {
       </button>
       {showMenu && (
         <div className="menu__container__comments">
-          <EditCommentModal setShowMenu={setShowMenu} comment={comment} />
+          <EditCommentModal
+            socket={socket}
+            setShowMenu={setShowMenu}
+            post={post}
+            comment={comment}
+          />
           <DeleteCommentModal comment={comment} />
         </div>
       )}

@@ -9,12 +9,16 @@ function CreateCommentForm({ socket, post }) {
   const [content, setContent] = useState("");
   const [errors, setErrors] = useState([]);
 
-  const roomUrl = window.location.pathname;
+  let roomUrl = window.location.pathname;
 
   const createComment = async (e) => {
     e.preventDefault();
     setErrors([]);
     const validationErrors = [];
+
+    if (roomUrl === "/home") {
+      roomUrl = `/profile/${post.user_id}`;
+    }
 
     if (!content.length) {
       validationErrors.push("Comment can not be Empty!");
@@ -38,7 +42,9 @@ function CreateCommentForm({ socket, post }) {
 
     await dispatch(createAComment(payload));
 
-    socket.emit("createComment", payload);
+    await socket.emit("createComment", payload);
+
+    await socket.emit("createCommentHome", payload);
 
     setContent("");
   };

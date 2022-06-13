@@ -52,7 +52,33 @@ def create_post(data):
     room = data['roomUrl']
     emit("createPost", data, to=room)
 
+@socketio.on('createPostHome')
+def create_post(data):
+    emit("createPostHome", data, broadcast=True)
+
+@socketio.on('editPost')
+def edit_post(data):
+    room = data['roomUrl']
+    emit("editPost", data, to=room)
+
+@socketio.on('editPostHome')
+def edit_post(data):
+    emit("editPostHome", data, broadcast=True)
+
 @socketio.on('createComment')
 def create_comment(data):
     room = data['roomUrl']
     emit("createComment", data, to=room)
+
+@socketio.on('createCommentHome')
+def create_post(data):
+    emit("createCommentHome", data, broadcast=True)
+
+@socketio.on('editComment')
+def create_comment(data):
+    room = data['roomUrl']
+    emit("editComment", data, to=room)
+
+@socketio.on('editCommentHome')
+def create_post(data):
+    emit("editCommentHome", data, broadcast=True)

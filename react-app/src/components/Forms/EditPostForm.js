@@ -1,18 +1,25 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { editAPost } from "../../store/post";
 
-function EditPostForm({ setShowMenu, post, setShowModal }) {
+function EditPostForm({ socket, setShowMenu, post, setShowModal }) {
   const dispatch = useDispatch();
 
+  const user = useSelector((state) => state.session.user);
   const [content, setContent] = useState(post.content);
   const [errors, setErrors] = useState([]);
 
-  const editPost = (e) => {
+  let roomUrl = window.location.pathname;
+
+  const editPost = async (e) => {
     e.preventDefault();
 
     setErrors([]);
     const validationErrors = [];
+
+    if (roomUrl === "/home") {
+      roomUrl = `/profile/${user.id}`;
+    }
 
     if (!content.length) {
       validationErrors.push("Post can not be Empty!");
@@ -30,9 +37,14 @@ function EditPostForm({ setShowMenu, post, setShowModal }) {
     const payload = {
       postId: post.id,
       content,
+      roomUrl,
     };
 
-    dispatch(editAPost(payload));
+    await dispatch(editAPost(payload));
+
+    await socket.emit("editPost", payload);
+    await socket.emit("editPostHome", payload);
+
     setShowModal(false);
     setShowMenu(false);
   };
