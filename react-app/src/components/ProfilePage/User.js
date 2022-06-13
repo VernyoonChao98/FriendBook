@@ -118,12 +118,27 @@ function User() {
         </div>
         <div className="userprofile__main__content__container">
           <div className="userprofile__main__content__bio">
-            <span>Intro</span>
-            <span>
-              Name: {userProfile.firstname} {userProfile.lastname}
-            </span>
-            <span>Bio: {userProfile?.bio}</span>
-            <span>Birthday: {moment(userProfile?.birthday).format("L")}</span>
+            <span className="userprofile__main__content__intro">Intro</span>
+            <div className="userprofile__main__content__header__container">
+              <span className="userprofile__main__content__header">Name</span>
+              <span className="userprofile__main__content__bio__content">
+                {userProfile.firstname} {userProfile.lastname}
+              </span>
+            </div>
+            <div className="userprofile__main__content__header__container">
+              <span className="userprofile__main__content__header">Bio</span>
+              <span className="userprofile__main__content__bio__content">
+                {userProfile.bio}
+              </span>
+            </div>
+            <div className="userprofile__main__content__header__container">
+              <span className="userprofile__main__content__header">
+                Birthday
+              </span>
+              <span className="userprofile__main__content__bio__content">
+                {moment(userProfile.birthday).format("L")}
+              </span>
+            </div>
             {sessionUser.id === userProfile.id ? (
               <EditUserProfileModal socket={socket} />
             ) : null}
