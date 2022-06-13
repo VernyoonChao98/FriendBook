@@ -122,16 +122,16 @@ function User() {
             <div className="userprofile__main__content__header__container">
               <span className="userprofile__main__content__header">Name</span>
               <span className="userprofile__main__content__bio__content">
-                {userProfile.firstname} {userProfile.lastname}
+                {userProfile?.firstname} {userProfile?.lastname}
               </span>
             </div>
             <div className="userprofile__main__content__header__container">
               <span className="userprofile__main__content__header">Bio</span>
               <span className="userprofile__main__content__bio__content">
-                {userProfile.bio.length === 0 ? (
+                {userProfile?.bio?.length === 0 ? (
                   <>Add A Bio</>
                 ) : (
-                  <>{userProfile.bio}</>
+                  <>{userProfile?.bio}</>
                 )}
               </span>
             </div>
@@ -140,7 +140,7 @@ function User() {
                 Birthday
               </span>
               <span className="userprofile__main__content__bio__content">
-                {moment(userProfile.birthday).format("L")}
+                {moment(userProfile?.birthday).format("L")}
               </span>
             </div>
             {sessionUser.id === userProfile.id ? (
