@@ -51,6 +51,7 @@ function CreateCommentForm({ post }) {
           onChange={(e) => setContent(e.target.value)}
           type="text"
           placeholder="Write a comment..."
+          onBlur={(e) => setErrors([])}
         />
       </form>
       <span className="home__create__comment__press">
