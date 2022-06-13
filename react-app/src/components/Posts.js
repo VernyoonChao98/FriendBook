@@ -59,49 +59,51 @@ function Posts() {
                   </div>
                 </div>
               </div>
-              {Object.values(post.comments).map((comment) => {
-                return (
-                  <div
-                    className="home__each__comment__container"
-                    key={comment.id}
-                  >
-                    <div className="home__comment__user__left">
-                      <img
-                        className="comment_avatar"
-                        src={comment.user.avatar_url}
-                        alt="commentAvatar"
-                      />
-                    </div>
-                    <div className="home__comment__container">
-                      <div className="home__comment__content">
-                        <div className="home__comment__user__text">
-                          <NavLink
-                            to={`/profile/${comment.user_id}`}
-                            className="home__comment__username__text"
-                          >
-                            {comment.user.username}
-                          </NavLink>
+              <div className="home__all__comment__container">
+                {Object.values(post.comments).map((comment) => {
+                  return (
+                    <div
+                      className="home__each__comment__container"
+                      key={comment.id}
+                    >
+                      <div className="home__comment__user__left">
+                        <img
+                          className="comment_avatar"
+                          src={comment.user.avatar_url}
+                          alt="commentAvatar"
+                        />
+                      </div>
+                      <div className="home__comment__container">
+                        <div className="home__comment__content">
+                          <div className="home__comment__user__text">
+                            <NavLink
+                              to={`/profile/${comment.user_id}`}
+                              className="home__comment__username__text"
+                            >
+                              {comment.user.username}
+                            </NavLink>
+                          </div>
+                          {comment.content}
+                          {comment.edited === false ? (
+                            <span className="home__comment__username__created">
+                              {moment(comment.created_at).calendar()}
+                            </span>
+                          ) : (
+                            <span className="home__comment__username__created">
+                              {moment(comment.created_at).calendar()} (edited)
+                            </span>
+                          )}
                         </div>
-                        {comment.content}
-                        {comment.edited === false ? (
-                          <span className="home__comment__username__created">
-                            {moment(comment.created_at).calendar()}
-                          </span>
+                        {sessionUser.id === comment.user_id ? (
+                          <MenuForComment comment={comment} />
                         ) : (
-                          <span className="home__comment__username__created">
-                            {moment(comment.created_at).calendar()} (edited)
-                          </span>
+                          <></>
                         )}
                       </div>
-                      {sessionUser.id === comment.user_id ? (
-                        <MenuForComment comment={comment} />
-                      ) : (
-                        <></>
-                      )}
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
               <CreateCommentForm post={post} />
             </div>
           );

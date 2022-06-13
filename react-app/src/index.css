@@ -368,6 +368,11 @@ body {
   margin-bottom: 4px;
 }
 
+.home__all__comment__container {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
 .home__comment__container {
   display: flex;
   justify-content: flex-start;
