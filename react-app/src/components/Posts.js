@@ -94,11 +94,13 @@ function Posts() {
                             </span>
                           )}
                         </div>
-                        {sessionUser.id === comment.user_id ? (
-                          <MenuForComment comment={comment} />
-                        ) : (
-                          <></>
-                        )}
+                        <div>
+                          {sessionUser.id === comment.user_id ? (
+                            <MenuForComment comment={comment} />
+                          ) : (
+                            <></>
+                          )}
+                        </div>
                       </div>
                     </div>
                   );
