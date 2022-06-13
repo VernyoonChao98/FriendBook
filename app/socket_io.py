@@ -7,25 +7,25 @@ socketio = SocketIO(cors_allowed_origins="*")
 def test_disconnect():
     print('Client disconnected')
 
-@socketio.on("chat")
-def handle_chat(data):
-    emit("chat", broadcast=True, to=data["room"])
+# @socketio.on("chat")
+# def handle_chat(data):
+#     emit("chat", broadcast=True, to=data["room"])
 
-@socketio.on("online")
-def turn_online(data):
-    user = User.query.get(data["id"])
-    user.online = True
-    db.session.add(user)
-    db.session.commit()
-    emit("online", broadcast=True)
+# @socketio.on("online")
+# def turn_online(data):
+#     user = User.query.get(data["id"])
+#     user.online = True
+#     db.session.add(user)
+#     db.session.commit()
+#     emit("online", broadcast=True)
 
-@socketio.on("offline")
-def turn_online(data):
-    user = User.query.get(data["id"])
-    user.online = False
-    db.session.add(user)
-    db.session.commit()
-    emit("offline", broadcast=True)
+# @socketio.on("offline")
+# def turn_online(data):
+#     user = User.query.get(data["id"])
+#     user.online = False
+#     db.session.add(user)
+#     db.session.commit()
+#     emit("offline", broadcast=True)
 
 @socketio.on('join')
 def on_join(data):
@@ -46,3 +46,13 @@ def updated_profile(data):
 def updated_banner(data):
     room = data['roomUrl']
     emit("updatedBanner", data, to=room)
+
+@socketio.on('createPost')
+def create_post(data):
+    room = data['roomUrl']
+    emit("createPost", data, to=room)
+
+@socketio.on('createComment')
+def create_comment(data):
+    room = data['roomUrl']
+    emit("createComment", data, to=room)

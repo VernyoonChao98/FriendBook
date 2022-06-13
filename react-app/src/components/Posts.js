@@ -8,7 +8,7 @@ import CreateCommentForm from "./Forms/CreateCommentForm";
 import MenuForPost from "./Menus/MenuForPost";
 import MenuForComment from "./Menus/MenuForComment";
 
-function Posts() {
+function Posts({ socket }) {
   const sessionUser = useSelector((state) => state.session.user);
   const posts = useSelector((state) => state.posts);
   return (
@@ -106,7 +106,7 @@ function Posts() {
                   );
                 })}
               </div>
-              <CreateCommentForm post={post} />
+              <CreateCommentForm socket={socket} post={post} />
             </div>
           );
         })}

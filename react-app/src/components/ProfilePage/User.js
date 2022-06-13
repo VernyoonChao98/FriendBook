@@ -28,7 +28,10 @@ function User() {
   const roomUrl = window.location.pathname;
 
   useEffect(() => {
-    socket = io();
+    socket = io({
+      autoConnect: false,
+    });
+    socket.connect();
 
     const socketPayload = {
       roomUrl,
@@ -56,6 +59,18 @@ function User() {
         console.log("not the owner and others will update their thing");
         dispatch(getUserProfile(payload));
       }
+    });
+
+    socket.on("createPost", async () => {
+      console.log("someoneCreated post");
+      if (parseInt(payload.userId) !== sessionUser.id) {
+        console.log("not the owner and others will update their thing");
+        dispatch(getUsersPosts(payload));
+      }
+    });
+
+    socket.on("createComment", async () => {
+      dispatch(getUsersPosts(payload));
     });
 
     dispatch(getUserProfile(payload))
@@ -148,8 +163,10 @@ function User() {
             ) : null}
           </div>
           <div className="userprofile__all__user__posts">
-            {sessionUser.id === userProfile.id ? <CreatePostModal /> : null}
-            <Posts />
+            {sessionUser.id === userProfile.id ? (
+              <CreatePostModal socket={socket} />
+            ) : null}
+            <Posts socket={socket} />
           </div>
         </div>
       </div>

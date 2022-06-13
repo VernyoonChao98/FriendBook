@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createAPost } from "../../store/post";
 
-function CreatePostForm({ setShowModal }) {
+function CreatePostForm({ socket, setShowModal }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
 
   const [content, setContent] = useState("");
   const [errors, setErrors] = useState([]);
 
-  const createPost = (e) => {
+  const roomUrl = window.location.pathname;
+
+  const createPost = async (e) => {
     e.preventDefault();
     setErrors([]);
 
@@ -31,9 +33,13 @@ function CreatePostForm({ setShowModal }) {
     const payload = {
       user_id: user.id,
       content,
+      roomUrl,
     };
 
-    dispatch(createAPost(payload));
+    await dispatch(createAPost(payload));
+
+    await socket.emit("createPost", payload);
+
     setShowModal(false);
   };
 
