@@ -41,3 +41,8 @@ def on_leave(data):
 def updated_profile(data):
     room = data['roomUrl']
     emit("updatedProfile", data, to=room)
+
+@socketio.on('updatedBanner')
+def updated_banner(data):
+    room = data['roomUrl']
+    emit("updatedBanner", data, to=room)

@@ -4,16 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { io } from "socket.io-client";
 
-import {
-  getUserProfile,
-  editBannerImage,
-  cleanUserProfile,
-} from "../../store/userprofile";
+import { getUserProfile, cleanUserProfile } from "../../store/userprofile";
 
 import { getUsersPosts, cleanPost } from "../../store/post";
 
 import CreatePostModal from "../Modal/CreatePostModal";
 import EditUserProfileModal from "../Modal/EditUserProfileModal";
+import EditUserBannerModal from "../Modal/EditUserBannerModal";
 
 import Posts from "../Posts";
 
@@ -26,7 +23,6 @@ function User() {
   const userProfile = useSelector((state) => state.userprofile)[userId];
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const [bannerImage, setBannerImage] = useState();
   // const [previewUrl, setPreviewUrl] = useState();
 
   const roomUrl = window.location.pathname;
@@ -54,6 +50,14 @@ function User() {
       }
     });
 
+    socket.on("updatedBanner", async (payload) => {
+      console.log("owner changed banner");
+      if (parseInt(payload.userId) !== sessionUser.id) {
+        console.log("not the owner and others will update their thing");
+        dispatch(getUserProfile(payload));
+      }
+    });
+
     dispatch(getUserProfile(payload))
       .then(() => {
         dispatch(getUsersPosts(payload));
@@ -71,16 +75,6 @@ function User() {
     };
   }, [dispatch, userId, roomUrl, sessionUser.id]);
 
-  const editMyBannerImage = (e) => {
-    e.preventDefault();
-    const payload = {
-      userId,
-      banner_url: bannerImage,
-    };
-
-    dispatch(editBannerImage(payload));
-  };
-
   // const updateImage = (e) => {
   //   console.log(e.target.files, "this is line 47");
   //   const file = e.target.files[0];
@@ -92,11 +86,6 @@ function User() {
   //   setSubmitted(true);
   // };
 
-  const updateBannerImage = (e) => {
-    const file = e.target.files[0];
-    setBannerImage(file);
-  };
-
   return (
     isLoaded && (
       <div>
@@ -104,7 +93,7 @@ function User() {
           <div className="userprofile__top__banner__container">
             <img
               className="userprofile__top__banner"
-              src={userProfile?.banner_url}
+              src={userProfile.banner_url}
               alt="banner"
             ></img>
           </div>
@@ -112,35 +101,44 @@ function User() {
             <div className="test">
               <img
                 className="userprofile__top__avatar"
-                src={userProfile?.avatar_url}
+                src={userProfile.avatar_url}
                 alt="avatar"
               ></img>
               <div>
                 <span className="userprofile__top__username">
-                  {userProfile?.username}
+                  {userProfile.username}
                 </span>
                 <span className="">0 friends</span>
               </div>
             </div>
-            <form onSubmit={editMyBannerImage}>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={updateBannerImage}
-              ></input>
-              <button onClick={editMyBannerImage}>Edit Banner</button>
-            </form>
-            <button>Edit banner button for modal eventually</button>
+            {sessionUser.id === userProfile.id ? (
+              <EditUserBannerModal socket={socket} />
+            ) : null}
           </div>
         </div>
         <div className="userprofile__main__content__container">
           <div className="userprofile__main__content__bio">
-            <span>Intro</span>
-            <span>
-              Name: {userProfile?.firstname} {userProfile?.lastname}
-            </span>
-            <span>Bio: {userProfile?.bio}</span>
-            <span>Birthday: {moment(userProfile?.birthday).format("L")}</span>
+            <span className="userprofile__main__content__intro">Intro</span>
+            <div className="userprofile__main__content__header__container">
+              <span className="userprofile__main__content__header">Name</span>
+              <span className="userprofile__main__content__bio__content">
+                {userProfile.firstname} {userProfile.lastname}
+              </span>
+            </div>
+            <div className="userprofile__main__content__header__container">
+              <span className="userprofile__main__content__header">Bio</span>
+              <span className="userprofile__main__content__bio__content">
+                {userProfile.bio}
+              </span>
+            </div>
+            <div className="userprofile__main__content__header__container">
+              <span className="userprofile__main__content__header">
+                Birthday
+              </span>
+              <span className="userprofile__main__content__bio__content">
+                {moment(userProfile.birthday).format("L")}
+              </span>
+            </div>
             {sessionUser.id === userProfile.id ? (
               <EditUserProfileModal socket={socket} />
             ) : null}

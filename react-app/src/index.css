@@ -597,6 +597,39 @@ body {
   border-radius: 10px;
 }
 
+.userprofile__main__content__intro {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  /* border-bottom: 1px solid black; */
+  text-align: center;
+}
+
+.userprofile__main__content__header__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.userprofile__main__content__header {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 550;
+  width: 100%;
+  /* border: 1px solid black; */
+  border-radius: 20px;
+  background-color: #e4e6eb;
+  margin-bottom: 10px;
+}
+
+.userprofile__main__content__bio__content {
+  text-align: center;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
 .userprofile__all__user__posts {
   width: 600px;
 }
