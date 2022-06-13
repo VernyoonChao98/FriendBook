@@ -357,6 +357,11 @@ body {
   flex-direction: column;
 }
 
+.home__comment__username__created {
+  margin-top: 5px;
+  font-size: 11px;
+}
+
 .home__comment__username__text {
   text-decoration: none;
   font-weight: bold;
@@ -376,6 +381,8 @@ body {
   overflow-wrap: break-word;
   word-break: break-all;
   padding: 16px;
+  padding-bottom: 12px;
+  padding-top: 12px;
   margin: 0px 8px 8px 8px;
   border-radius: 16px;
   background-color: #f0efef;
@@ -508,6 +515,17 @@ body {
   cursor: pointer;
 }
 
+.create__post__text__button__disabled {
+  color: white;
+  width: 90%;
+  height: 40px;
+  margin: 10px;
+  border-radius: 6px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  background-color: #e4e6eb;
+}
+
 .post__delete__container {
   display: flex;
   flex-direction: column;
@@ -632,4 +650,78 @@ body {
 
 .userprofile__all__user__posts {
   width: 600px;
+}
+
+.edit__banner__button {
+  all: unset;
+  margin-top: 10px;
+  height: 26px;
+  padding: 8px;
+  /* border: 1px solid black; */
+  border-radius: 12px;
+  cursor: pointer;
+  color: white;
+  background-color: #1877f2;
+}
+
+.edit__banner__button:hover {
+  background-color: #1756a8;
+}
+
+.edit__profile__button {
+  width: 100px;
+  height: 25px;
+  padding: 5px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  background: url("./components/Images/pencil-edit-button-svgrepo-com.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  text-align: right;
+  background-position: left;
+}
+
+.edit__user__profile__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 520px;
+  min-height: 420px;
+  padding: 5px;
+}
+
+.edit__user__profile__image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.edit__user__profile__preview__image {
+  height: 150px;
+  width: 150px;
+  border-radius: 150px;
+  border: 1px solid black;
+}
+.edit__user__profile__bio__input {
+  font-size: 1.5rem;
+  font-weight: 400;
+  border: none;
+  /* border-top: 1px solid black; */
+  border-bottom: 1px solid black;
+  outline: none;
+  padding: 20px;
+}
+
+.edit__user__banner__preview__image {
+  height: 145px;
+  width: 400px;
+  border: 1px solid black;
 }

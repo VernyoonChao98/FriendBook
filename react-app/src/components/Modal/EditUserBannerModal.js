@@ -7,6 +7,7 @@ function EditUserBannerModal({ socket }) {
   return (
     <div>
       <button
+        className="edit__banner__button"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();

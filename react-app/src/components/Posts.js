@@ -83,6 +83,15 @@ function Posts() {
                           </NavLink>
                         </div>
                         {comment.content}
+                        {comment.edited === false ? (
+                          <span className="home__comment__username__created">
+                            {moment(comment.created_at).calendar()}
+                          </span>
+                        ) : (
+                          <span className="home__comment__username__created">
+                            {moment(comment.created_at).calendar()} (edited)
+                          </span>
+                        )}
                       </div>
                       {sessionUser.id === comment.user_id ? (
                         <MenuForComment comment={comment} />
