@@ -824,3 +824,21 @@ body {
   width: 400px;
   border: 1px solid black;
 }
+
+/* 404 ------------------------------- */
+
+.page__not__found__background {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  /* background-color: white; */
+}
+
+.NotFound {
+  background: url("./components/Images/404.PNG") no-repeat;
+  width: 650px;
+  height: 500px;
+}

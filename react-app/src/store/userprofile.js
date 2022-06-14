@@ -26,6 +26,7 @@ export const getUserProfile = (payload) => async (dispatch) => {
     const user = await response.json();
     dispatch(loadUserProfile(user));
   }
+  return response;
 };
 
 export const editUserProfile = (payload) => async (dispatch) => {

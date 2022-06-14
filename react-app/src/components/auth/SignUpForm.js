@@ -29,6 +29,7 @@ const SignUpForm = ({ setShowModal }) => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
+    const validationErrors = [];
 
     let birthday = new Date(`${day} ${month} ${year}`);
     birthday = birthday.toISOString();
@@ -43,6 +44,25 @@ const SignUpForm = ({ setShowModal }) => {
         setShowModal(false);
         history.push("/home");
       }
+    } else {
+      if (!firstName) {
+        validationErrors.push("firstname : This field is required.");
+      }
+      if (!lastName) {
+        validationErrors.push("lastname : This field is required.");
+      }
+      if (!username) {
+        validationErrors.push("username : This field is required.");
+      }
+      if (!email) {
+        validationErrors.push("email : This field is required.");
+      }
+      if (!password || !repeatPassword) {
+        validationErrors.push("password: Please enter matching passwords.");
+      } else {
+        validationErrors.push("password: Passwords need to match.");
+      }
+      setErrors(validationErrors);
     }
   };
 

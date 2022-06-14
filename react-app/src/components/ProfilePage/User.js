@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { io } from "socket.io-client";
+import { useHistory } from "react-router-dom";
 
 import { getUserProfile, cleanUserProfile } from "../../store/userprofile";
 
@@ -18,6 +19,7 @@ let socket;
 
 function User() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { userId } = useParams();
   const sessionUser = useSelector((state) => state.session.user);
   const userProfile = useSelector((state) => state.userprofile)[userId];
@@ -89,7 +91,10 @@ function User() {
     });
 
     dispatch(getUserProfile(payload))
-      .then(() => {
+      .then((data) => {
+        if (!data.ok) {
+          history.push("/404");
+        }
         dispatch(getUsersPosts(payload));
       })
       .then(() => {

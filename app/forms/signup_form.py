@@ -20,6 +20,8 @@ def username_exists(form, field):
         raise ValidationError('Username is already in use.')
 
 
+
+
 class SignUpForm(FlaskForm):
     firstname = StringField('firstname', validators=[DataRequired()])
     lastname = StringField('lastname', validators=[DataRequired()])
@@ -27,4 +29,5 @@ class SignUpForm(FlaskForm):
         'username', validators=[DataRequired(), username_exists])
     email = StringField('email', validators=[DataRequired(), user_exists])
     password = StringField('password', validators=[DataRequired()])
+    repeat_password = StringField('repeat_password', validators=[DataRequired()])
     birthday = StringField("birthday", validators=[DataRequired()])

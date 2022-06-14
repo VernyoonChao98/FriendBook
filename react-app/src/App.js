@@ -8,6 +8,7 @@ import User from "./components/ProfilePage/User";
 import SplashPage from "./components/SplashPage/SplashPage";
 import Home from "./components/Home/Home";
 import FriendsPage from "./components/FriendsPage/FriendsPage";
+import PageNotFound from "./components/404Page";
 
 import { authenticate } from "./store/session";
 
@@ -44,6 +45,9 @@ function App() {
           <NavBar />
           <User />
         </ProtectedRoute>
+        <Route path="/">
+          <PageNotFound />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
