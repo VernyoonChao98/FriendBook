@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createAComment } from "../../store/post";
 
-function CreateCommentForm({ socket, post }) {
+function CreateCommentForm({ dummyComment, socket, post }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
 
@@ -45,6 +45,8 @@ function CreateCommentForm({ socket, post }) {
     await socket.emit("createComment", payload);
 
     await socket.emit("createCommentHome", payload);
+
+    dummyComment?.current?.scrollIntoView();
 
     setContent("");
   };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
@@ -11,6 +11,8 @@ import MenuForComment from "./Menus/MenuForComment";
 function Posts({ socket }) {
   const sessionUser = useSelector((state) => state.session.user);
   const posts = useSelector((state) => state.posts);
+  const dummyComment = useRef();
+
   return (
     <div className="home__all__post__container">
       {Object.values(posts)
@@ -115,8 +117,13 @@ function Posts({ socket }) {
                     </div>
                   );
                 })}
+                <div ref={dummyComment}></div>
               </div>
-              <CreateCommentForm socket={socket} post={post} />
+              <CreateCommentForm
+                dummyComment={dummyComment}
+                socket={socket}
+                post={post}
+              />
             </div>
           );
         })}

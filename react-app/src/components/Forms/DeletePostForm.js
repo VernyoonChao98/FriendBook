@@ -19,7 +19,7 @@ function DeletePostForm({ socket, post, setShowModal }) {
       roomUrl,
     };
 
-    await dispatch(deleteAPost(payload));
+    dispatch(deleteAPost(payload));
 
     await socket.emit("deletePost", payload);
     await socket.emit("deletePostHome", payload);

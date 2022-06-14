@@ -36,7 +36,7 @@ function MenuForComment({ socket, post, comment }) {
             post={post}
             comment={comment}
           />
-          <DeleteCommentModal comment={comment} />
+          <DeleteCommentModal socket={socket} post={post} comment={comment} />
         </div>
       )}
     </div>

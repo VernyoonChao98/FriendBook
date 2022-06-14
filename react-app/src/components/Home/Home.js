@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { io } from "socket.io-client";
 
-import { getAllPosts, cleanPost, removePost } from "../../store/post";
+import { getAllPosts, cleanPost } from "../../store/post";
 
 import CreatePostModal from "../Modal/CreatePostModal";
 
@@ -21,6 +21,10 @@ function Home() {
     });
     socket.connect();
 
+    socket.on("updatedProfileHome", async (payload) => {
+      dispatch(getAllPosts());
+    });
+
     socket.on("createPostHome", async (payload) => {
       dispatch(getAllPosts());
     });
@@ -30,7 +34,6 @@ function Home() {
     });
 
     socket.on("deletePostHome", async (payload) => {
-      console.log("hello?");
       await dispatch(cleanPost());
       await dispatch(getAllPosts());
     });
@@ -40,6 +43,10 @@ function Home() {
     });
 
     socket.on("editCommentHome", async (payload) => {
+      dispatch(getAllPosts());
+    });
+
+    socket.on("deleteCommentHome", async (payload) => {
       dispatch(getAllPosts());
     });
 

@@ -42,6 +42,10 @@ def updated_profile(data):
     room = data['roomUrl']
     emit("updatedProfile", data, to=room)
 
+@socketio.on('updatedProfileHome')
+def updated_profile_home(data):
+    emit("updatedProfileHome", data, broadcast=True)
+
 @socketio.on('updatedBanner')
 def updated_banner(data):
     room = data['roomUrl']
@@ -91,3 +95,12 @@ def edit_comment(data):
 @socketio.on('editCommentHome')
 def edit_comment_home(data):
     emit("editCommentHome", data, broadcast=True)
+
+@socketio.on('deleteComment')
+def delete_comment(data):
+    room = data['roomUrl']
+    emit("deleteComment", data, to=room)
+
+@socketio.on('deleteCommentHome')
+def delete_comment_home(data):
+    emit("deleteCommentHome", data, broadcast=True)
