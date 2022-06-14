@@ -44,9 +44,7 @@ function User() {
     socket.emit("join", socketPayload);
 
     socket.on("updatedProfile", async (payload) => {
-      console.log("owner changed profile");
       if (parseInt(payload.userId) !== sessionUser.id) {
-        console.log("not the owner and others will update their thing");
         dispatch(getUserProfile(payload)).then(() => {
           dispatch(getUsersPosts(payload));
         });
@@ -54,33 +52,25 @@ function User() {
     });
 
     socket.on("updatedBanner", async (payload) => {
-      console.log("owner changed banner");
       if (parseInt(payload.userId) !== sessionUser.id) {
-        console.log("not the owner and others will update their thing");
         dispatch(getUserProfile(payload));
       }
     });
 
     socket.on("createPost", async () => {
-      console.log("someoneCreated post");
       if (parseInt(payload.userId) !== sessionUser.id) {
-        console.log("not the owner and others will update their thing");
         dispatch(getUsersPosts(payload));
       }
     });
 
     socket.on("editPost", async () => {
-      console.log("someoneEdited post");
       if (parseInt(payload.userId) !== sessionUser.id) {
-        console.log("not the owner and others will update their thing");
         dispatch(getUsersPosts(payload));
       }
     });
 
     socket.on("deletePost", async () => {
-      console.log("someonedeleted post");
       if (parseInt(payload.userId) !== sessionUser.id) {
-        console.log("not the owner and others will update their thing");
         await dispatch(cleanPost());
         await dispatch(getUsersPosts(payload));
       }
@@ -91,6 +81,10 @@ function User() {
     });
 
     socket.on("editComment", async () => {
+      dispatch(getUsersPosts(payload));
+    });
+
+    socket.on("deleteComment", async () => {
       dispatch(getUsersPosts(payload));
     });
 

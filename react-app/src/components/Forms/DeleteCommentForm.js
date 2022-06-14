@@ -2,16 +2,28 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteAComment } from "../../store/post";
 
-function DeleteCommentForm({ comment, setShowModal }) {
+function DeleteCommentForm({ socket, post, comment, setShowModal }) {
   const dispatch = useDispatch();
 
-  const deleteComment = (e) => {
+  let roomUrl = window.location.pathname;
+
+  const deleteComment = async (e) => {
     e.preventDefault();
+
+    if (roomUrl === "/home") {
+      roomUrl = `/profile/${post.user.id}`;
+    }
+
     const payload = {
       commentId: comment.id,
+      roomUrl,
     };
 
     dispatch(deleteAComment(payload));
+
+    await socket.emit("deleteComment", payload);
+    await socket.emit("deleteCommentHome", payload);
+
     setShowModal(false);
   };
 

@@ -53,6 +53,7 @@ function EditUserProfileForm({ socket, setShowModal }) {
     });
 
     await socket.emit("updatedProfile", payload);
+    await socket.emit("updatedProfileHome", payload);
     setBio("");
     setShowModal(false);
   };
