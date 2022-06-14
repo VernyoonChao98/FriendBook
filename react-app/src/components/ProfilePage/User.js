@@ -77,6 +77,15 @@ function User() {
       }
     });
 
+    socket.on("deletePost", async () => {
+      console.log("someonedeleted post");
+      if (parseInt(payload.userId) !== sessionUser.id) {
+        console.log("not the owner and others will update their thing");
+        await dispatch(cleanPost());
+        await dispatch(getUsersPosts(payload));
+      }
+    });
+
     socket.on("createComment", async () => {
       dispatch(getUsersPosts(payload));
     });

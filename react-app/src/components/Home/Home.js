@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { io } from "socket.io-client";
 
-import { getAllPosts, cleanPost } from "../../store/post";
+import { getAllPosts, cleanPost, removePost } from "../../store/post";
 
 import CreatePostModal from "../Modal/CreatePostModal";
 
@@ -27,6 +27,12 @@ function Home() {
 
     socket.on("editPostHome", async (payload) => {
       dispatch(getAllPosts());
+    });
+
+    socket.on("deletePostHome", async (payload) => {
+      console.log("hello?");
+      await dispatch(cleanPost());
+      await dispatch(getAllPosts());
     });
 
     socket.on("createCommentHome", async (payload) => {

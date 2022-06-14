@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
 import DeletePostForm from "../Forms/DeletePostForm";
 
-function DeletePostModal({ post }) {
+function DeletePostModal({ socket, post }) {
   const [showModal, setShowModal] = useState(false);
   return (
     <div>
@@ -18,7 +18,11 @@ function DeletePostModal({ post }) {
       </button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <DeletePostForm post={post} setShowModal={setShowModal} />
+          <DeletePostForm
+            socket={socket}
+            post={post}
+            setShowModal={setShowModal}
+          />
         </Modal>
       )}
     </div>

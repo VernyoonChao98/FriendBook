@@ -53,7 +53,7 @@ def create_post(data):
     emit("createPost", data, to=room)
 
 @socketio.on('createPostHome')
-def create_post(data):
+def create_post_home(data):
     emit("createPostHome", data, broadcast=True)
 
 @socketio.on('editPost')
@@ -62,8 +62,17 @@ def edit_post(data):
     emit("editPost", data, to=room)
 
 @socketio.on('editPostHome')
-def edit_post(data):
+def edit_post_home(data):
     emit("editPostHome", data, broadcast=True)
+
+@socketio.on('deletePost')
+def delete_post(data):
+    room = data['roomUrl']
+    emit("deletePost", data, to=room)
+
+@socketio.on('deletePostHome')
+def delete_post_home(data):
+    emit("deletePostHome", data, broadcast=True)
 
 @socketio.on('createComment')
 def create_comment(data):
@@ -71,14 +80,14 @@ def create_comment(data):
     emit("createComment", data, to=room)
 
 @socketio.on('createCommentHome')
-def create_post(data):
+def create_comment_home(data):
     emit("createCommentHome", data, broadcast=True)
 
 @socketio.on('editComment')
-def create_comment(data):
+def edit_comment(data):
     room = data['roomUrl']
     emit("editComment", data, to=room)
 
 @socketio.on('editCommentHome')
-def create_post(data):
+def edit_comment_home(data):
     emit("editCommentHome", data, broadcast=True)
