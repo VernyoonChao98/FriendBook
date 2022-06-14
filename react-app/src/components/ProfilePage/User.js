@@ -35,7 +35,9 @@ function User() {
     });
     socket.connect();
 
-    if (!parseInt(userId)) {
+    const regex = /[^\d]/g;
+
+    if (userId.match(regex)) {
       history.push("/404");
       socket.disconnect();
       return;
@@ -100,6 +102,8 @@ function User() {
       .then((data) => {
         if (!data.ok) {
           history.push("/404");
+          socket.disconnect();
+          return;
         }
         dispatch(getUsersPosts(payload));
       })
