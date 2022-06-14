@@ -35,6 +35,12 @@ function User() {
     });
     socket.connect();
 
+    if (!parseInt(userId)) {
+      history.push("/404");
+      socket.disconnect();
+      return;
+    }
+
     const socketPayload = {
       roomUrl,
     };
@@ -107,9 +113,8 @@ function User() {
       setIsLoaded(false);
       socket.emit("leave", socketPayload);
       socket.disconnect();
-      console.log("unmounted");
     };
-  }, [dispatch, userId, roomUrl, sessionUser.id]);
+  }, [dispatch, history, userId, roomUrl, sessionUser.id]);
 
   // const updateImage = (e) => {
   //   console.log(e.target.files, "this is line 47");
