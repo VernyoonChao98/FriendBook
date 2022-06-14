@@ -2,14 +2,21 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editAComment } from "../../store/post";
 
-function EditCommentForm({ setShowMenu, comment, setShowModal }) {
+function EditCommentForm({ socket, setShowMenu, post, comment, setShowModal }) {
+  const dispatch = useDispatch();
+
   const [content, setContent] = useState(comment.content);
   const [errors, setErrors] = useState([]);
 
-  const dispatch = useDispatch();
-  const editComment = (e) => {
+  let roomUrl = window.location.pathname;
+
+  const editComment = async (e) => {
     e.preventDefault();
     setErrors([]);
+
+    if (roomUrl === "/home") {
+      roomUrl = `/profile/${post.user.id}`;
+    }
 
     const validationErrors = [];
 
@@ -29,9 +36,14 @@ function EditCommentForm({ setShowMenu, comment, setShowModal }) {
     const payload = {
       commentId: comment.id,
       content,
+      roomUrl,
     };
 
-    dispatch(editAComment(payload));
+    await dispatch(editAComment(payload));
+
+    await socket.emit("editComment", payload);
+    await socket.emit("editCommentHome", payload);
+
     setShowModal(false);
     setShowMenu(false);
   };

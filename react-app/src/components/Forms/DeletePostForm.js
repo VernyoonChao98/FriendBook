@@ -2,15 +2,28 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteAPost } from "../../store/post";
 
-function DeletePostForm({ post, setShowModal }) {
+function DeletePostForm({ socket, post, setShowModal }) {
   const dispatch = useDispatch();
 
-  const deletePost = (e) => {
+  let roomUrl = window.location.pathname;
+
+  const deletePost = async (e) => {
     e.preventDefault();
+
+    if (roomUrl === "/home") {
+      roomUrl = `/profile/${post.user.id}`;
+    }
+
     const payload = {
       postId: post.id,
+      roomUrl,
     };
-    dispatch(deleteAPost(payload));
+
+    await dispatch(deleteAPost(payload));
+
+    await socket.emit("deletePost", payload);
+    await socket.emit("deletePostHome", payload);
+
     setShowModal(false);
   };
 

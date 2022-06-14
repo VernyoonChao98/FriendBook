@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
 import EditCommentForm from "../Forms/EditCommentForm";
 
-function EditCommentModal({ setShowMenu, comment }) {
+function EditCommentModal({ socket, setShowMenu, post, comment }) {
   const [showModal, setShowModal] = useState(false);
   return (
     <div>
@@ -19,7 +19,9 @@ function EditCommentModal({ setShowMenu, comment }) {
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <EditCommentForm
+            socket={socket}
             setShowMenu={setShowMenu}
+            post={post}
             comment={comment}
             setShowModal={setShowModal}
           />

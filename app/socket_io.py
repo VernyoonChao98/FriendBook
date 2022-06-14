@@ -7,25 +7,25 @@ socketio = SocketIO(cors_allowed_origins="*")
 def test_disconnect():
     print('Client disconnected')
 
-@socketio.on("chat")
-def handle_chat(data):
-    emit("chat", broadcast=True, to=data["room"])
+# @socketio.on("chat")
+# def handle_chat(data):
+#     emit("chat", broadcast=True, to=data["room"])
 
-@socketio.on("online")
-def turn_online(data):
-    user = User.query.get(data["id"])
-    user.online = True
-    db.session.add(user)
-    db.session.commit()
-    emit("online", broadcast=True)
+# @socketio.on("online")
+# def turn_online(data):
+#     user = User.query.get(data["id"])
+#     user.online = True
+#     db.session.add(user)
+#     db.session.commit()
+#     emit("online", broadcast=True)
 
-@socketio.on("offline")
-def turn_online(data):
-    user = User.query.get(data["id"])
-    user.online = False
-    db.session.add(user)
-    db.session.commit()
-    emit("offline", broadcast=True)
+# @socketio.on("offline")
+# def turn_online(data):
+#     user = User.query.get(data["id"])
+#     user.online = False
+#     db.session.add(user)
+#     db.session.commit()
+#     emit("offline", broadcast=True)
 
 @socketio.on('join')
 def on_join(data):
@@ -46,3 +46,48 @@ def updated_profile(data):
 def updated_banner(data):
     room = data['roomUrl']
     emit("updatedBanner", data, to=room)
+
+@socketio.on('createPost')
+def create_post(data):
+    room = data['roomUrl']
+    emit("createPost", data, to=room)
+
+@socketio.on('createPostHome')
+def create_post_home(data):
+    emit("createPostHome", data, broadcast=True)
+
+@socketio.on('editPost')
+def edit_post(data):
+    room = data['roomUrl']
+    emit("editPost", data, to=room)
+
+@socketio.on('editPostHome')
+def edit_post_home(data):
+    emit("editPostHome", data, broadcast=True)
+
+@socketio.on('deletePost')
+def delete_post(data):
+    room = data['roomUrl']
+    emit("deletePost", data, to=room)
+
+@socketio.on('deletePostHome')
+def delete_post_home(data):
+    emit("deletePostHome", data, broadcast=True)
+
+@socketio.on('createComment')
+def create_comment(data):
+    room = data['roomUrl']
+    emit("createComment", data, to=room)
+
+@socketio.on('createCommentHome')
+def create_comment_home(data):
+    emit("createCommentHome", data, broadcast=True)
+
+@socketio.on('editComment')
+def edit_comment(data):
+    room = data['roomUrl']
+    emit("editComment", data, to=room)
+
+@socketio.on('editCommentHome')
+def edit_comment_home(data):
+    emit("editCommentHome", data, broadcast=True)

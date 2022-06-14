@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
 import EditPostForm from "../Forms/EditPostForm";
 
-function EditPostModal({ setShowMenu, post }) {
+function EditPostModal({ socket, setShowMenu, post }) {
   const [showModal, setShowModal] = useState(false);
   return (
     <div>
@@ -19,6 +19,7 @@ function EditPostModal({ setShowMenu, post }) {
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <EditPostForm
+            socket={socket}
             setShowMenu={setShowMenu}
             post={post}
             setShowModal={setShowModal}

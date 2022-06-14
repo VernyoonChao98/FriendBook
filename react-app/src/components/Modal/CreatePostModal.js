@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Modal } from "../../context/Modal";
 import CreatePostForm from "../Forms/CreatePostForm";
 
-function CreatePostModal() {
+function CreatePostModal({ socket }) {
   const user = useSelector((state) => state.session.user);
   const [showModal, setShowModal] = useState(false);
   return (
@@ -16,7 +16,7 @@ function CreatePostModal() {
       <button onClick={() => setShowModal(true)}>What's on your mind?</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <CreatePostForm setShowModal={setShowModal} />
+          <CreatePostForm socket={socket} setShowModal={setShowModal} />
         </Modal>
       )}
     </div>

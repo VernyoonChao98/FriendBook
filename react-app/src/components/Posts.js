@@ -8,7 +8,7 @@ import CreateCommentForm from "./Forms/CreateCommentForm";
 import MenuForPost from "./Menus/MenuForPost";
 import MenuForComment from "./Menus/MenuForComment";
 
-function Posts() {
+function Posts({ socket }) {
   const sessionUser = useSelector((state) => state.session.user);
   const posts = useSelector((state) => state.posts);
   return (
@@ -32,11 +32,17 @@ function Posts() {
                     >
                       {post.user.username}
                     </NavLink>
-                    <span>{moment(post.created_at).format("lll")}</span>
+                    {post.edited === false ? (
+                      <span>{moment(post.created_at).format("lll")}</span>
+                    ) : (
+                      <span>
+                        {moment(post.created_at).format("lll")} (edited)
+                      </span>
+                    )}
                   </div>
                 </div>
                 {sessionUser.id === post.user_id ? (
-                  <MenuForPost post={post} />
+                  <MenuForPost socket={socket} post={post} />
                 ) : (
                   <></>
                 )}
@@ -96,7 +102,11 @@ function Posts() {
                         </div>
                         <div>
                           {sessionUser.id === comment.user_id ? (
-                            <MenuForComment comment={comment} />
+                            <MenuForComment
+                              socket={socket}
+                              post={post}
+                              comment={comment}
+                            />
                           ) : (
                             <></>
                           )}
@@ -106,7 +116,7 @@ function Posts() {
                   );
                 })}
               </div>
-              <CreateCommentForm post={post} />
+              <CreateCommentForm socket={socket} post={post} />
             </div>
           );
         })}

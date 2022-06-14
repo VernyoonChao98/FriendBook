@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import EditPostModal from "../Modal/EditPostModal";
 import DeletePostModal from "../Modal/DeletePostModal";
 
-function MenuForPost({ post }) {
+function MenuForPost({ socket, post }) {
   const [showMenu, setShowMenu] = useState(false);
 
   const openMenu = () => {
@@ -30,8 +30,12 @@ function MenuForPost({ post }) {
       </button>
       {showMenu && (
         <div className="menu__container">
-          <EditPostModal setShowMenu={setShowMenu} post={post} />
-          <DeletePostModal post={post} />
+          <EditPostModal
+            socket={socket}
+            setShowMenu={setShowMenu}
+            post={post}
+          />
+          <DeletePostModal socket={socket} post={post} />
         </div>
       )}
     </div>

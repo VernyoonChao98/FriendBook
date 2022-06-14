@@ -22,7 +22,7 @@ const editPost = (payload) => ({
   payload,
 });
 
-const removePost = (payload) => ({
+export const removePost = (payload) => ({
   type: REMOVE_A_POST,
   payload,
 });
