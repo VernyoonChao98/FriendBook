@@ -159,6 +159,67 @@ body {
   line-height: 24px;
 }
 
+.create__account__input__name__container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.create__account__input__name {
+  font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 16px;
+  padding: 11px;
+  width: 180px;
+  border-style: solid;
+  border-radius: 5px;
+  border: 1px solid #ccd0d5;
+  margin: 0;
+}
+
+.create__account__input {
+  font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 16px;
+  padding: 11px;
+  width: 375px;
+  border-style: solid;
+  border-radius: 5px;
+  border: 1px solid #ccd0d5;
+  margin: 0;
+}
+
+.birthday {
+  font-size: 14px;
+  margin-left: 18px;
+}
+
+.create__birthday__input {
+  width: 125px;
+  vertical-align: top;
+  border: 1px solid #ccd0d5;
+  overflow: visible !important;
+  border-radius: 4px;
+  color: #1c1e21;
+  font-family: SFProText-Medium, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: normal;
+  height: 36px;
+  line-height: 20px;
+}
+
+.create__account__submit__button {
+  all: unset;
+  background-color: #00a400;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 18px;
+  height: 36px;
+  padding: 0 64px;
+  margin: 10px;
+}
+
 /* Nav Bar ------------------------------------- */
 
 .nav__container {
@@ -203,6 +264,25 @@ body {
   height: 53px;
   width: 100px;
   background: url("./components/Images/homeActive.svg") center no-repeat;
+  border-bottom: 3px solid blue;
+}
+
+.friends {
+  height: 56px;
+  width: 100px;
+  background: url("./components/Images/friend.svg") center no-repeat;
+}
+
+.friends:hover {
+  height: 53px;
+  width: 100px;
+  background-color: #d0d6dd;
+}
+
+.friends__active {
+  height: 53px;
+  width: 100px;
+  background: url("./components/Images/friendActive.svg") center no-repeat;
   border-bottom: 3px solid blue;
 }
 

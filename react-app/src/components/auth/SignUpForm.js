@@ -78,68 +78,74 @@ const SignUpForm = ({ setShowModal }) => {
             <div key={ind}>{error}</div>
           ))}
         </div>
-        <div>
-          <label>First name</label>
+        <div className="create__account__input__name__container">
           <input
+            className="create__account__input__name"
             type="text"
             name="FirstName"
             onChange={(e) => {
               setFirstName(e.target.value);
             }}
             value={firstName}
+            placeholder="First name"
           ></input>
-        </div>
-        <div>
-          <label>Last name</label>
           <input
+            className="create__account__input__name"
             type="text"
             name="LastName"
             onChange={(e) => {
               setLastName(e.target.value);
             }}
             value={lastName}
+            placeholder="Last name"
           ></input>
         </div>
-        <div>
-          <label>User Name</label>
+        <div className="create__account__input__name__container">
           <input
+            className="create__account__input"
             type="text"
             name="username"
             onChange={updateUsername}
             value={username}
+            placeholder="Username"
           ></input>
         </div>
-        <div>
-          <label>Email</label>
+        <div className="create__account__input__name__container">
           <input
+            className="create__account__input"
             type="text"
             name="email"
             onChange={updateEmail}
             value={email}
+            placeholder="Email"
           ></input>
         </div>
-        <div>
-          <label>Password</label>
+        <div className="create__account__input__name__container">
           <input
+            className="create__account__input"
             type="password"
             name="password"
             onChange={updatePassword}
             value={password}
+            required={true}
+            placeholder="New password"
           ></input>
         </div>
-        <div>
-          <label>Repeat Password</label>
+        <div className="create__account__input__name__container">
           <input
+            className="create__account__input"
             type="password"
             name="repeat_password"
             onChange={updateRepeatPassword}
             value={repeatPassword}
             required={true}
+            placeholder="Confirm password"
           ></input>
         </div>
-        <div>
-          <label>Birthday</label>
+        <span className="birthday">Birthday</span>
+        <div className="create__account__input__name__container">
           <select
+            className="create__birthday__input"
             value={month}
             onChange={(e) => {
               setMonth(e.target.value);
@@ -155,6 +161,7 @@ const SignUpForm = ({ setShowModal }) => {
             })}
           </select>
           <select
+            className="create__birthday__input"
             value={day}
             onChange={(e) => {
               setDay(e.target.value);
@@ -170,6 +177,7 @@ const SignUpForm = ({ setShowModal }) => {
             })}
           </select>
           <select
+            className="create__birthday__input"
             value={year}
             onChange={(e) => {
               setYear(e.target.value);
@@ -185,7 +193,11 @@ const SignUpForm = ({ setShowModal }) => {
             })}
           </select>
         </div>
-        <button type="submit">Sign Up</button>
+        <div className="create__account__input__name__container">
+          <button className="create__account__submit__button" type="submit">
+            Sign Up
+          </button>
+        </div>
       </form>
     </>
   );
