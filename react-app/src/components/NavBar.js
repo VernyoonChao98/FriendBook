@@ -16,6 +16,12 @@ const NavBar = () => {
           activeClassName="home__active"
         ></NavLink>
         <NavLink
+          className="friends"
+          to="/friends"
+          exact={true}
+          activeClassName="friends__active"
+        ></NavLink>
+        <NavLink
           className="profile"
           to={`/profile/${sessionUser.id}`}
           exact={true}

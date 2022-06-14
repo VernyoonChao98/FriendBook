@@ -7,6 +7,7 @@ import User from "./components/ProfilePage/User";
 
 import SplashPage from "./components/SplashPage/SplashPage";
 import Home from "./components/Home/Home";
+import FriendsPage from "./components/FriendsPage/FriendsPage";
 
 import { authenticate } from "./store/session";
 
@@ -34,6 +35,10 @@ function App() {
         <ProtectedRoute path="/home" exact={true}>
           <NavBar />
           <Home />
+        </ProtectedRoute>
+        <ProtectedRoute path="/friends" exact={true}>
+          <NavBar />
+          <FriendsPage />
         </ProtectedRoute>
         <ProtectedRoute path="/profile/:userId" exact={true}>
           <NavBar />
