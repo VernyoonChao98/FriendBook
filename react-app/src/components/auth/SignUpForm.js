@@ -194,7 +194,10 @@ const SignUpForm = ({ setShowModal }) => {
           </select>
         </div>
         <div className="create__account__input__name__container">
-          <button className="create__account__submit__button" type="submit">
+          <button
+            onClick={onSignUp}
+            className="create__account__submit__button"
+          >
             Sign Up
           </button>
         </div>
