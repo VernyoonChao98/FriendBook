@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { io } from "socket.io-client";
 
 import { getAllPosts, cleanPost } from "../../store/post";
+import { getAllUsers } from "../../store/users";
 
 import CreatePostModal from "../Modal/CreatePostModal";
 
@@ -14,6 +15,7 @@ let socket;
 function Home() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const sessionUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
     socket = io({
@@ -51,6 +53,7 @@ function Home() {
     });
 
     dispatch(getAllPosts()).then(() => {
+      dispatch(getAllUsers());
       setIsLoaded(true);
     });
 

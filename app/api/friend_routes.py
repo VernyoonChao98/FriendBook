@@ -5,10 +5,12 @@ from app.forms.friend_form import FriendRequestForm
 friend_routes = Blueprint('friends', __name__)
 
 # Gets all friends
-@friend_routes.route("/myFriends/<int:id>")
+@friend_routes.route("/<int:id>")
 def get_all_my_friends(id):
     friends_a = Friend.query.filter(Friend.user_a == id, Friend.status == True).all()
     friends_b = Friend.query.filter(Friend.user_b == id, Friend.status == True).all()
+    # friends_a = Friend.query.filter(Friend.user_a == id).all()
+    # friends_b = Friend.query.filter(Friend.user_b == id).all()
     return { "acceptedSentFQ": [friend.to_dict() for friend in friends_a], "acceptedReceivedFQ": [friend.to_dict() for friend in friends_b]}
 
 # Gets all my sent friend requests

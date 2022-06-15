@@ -842,3 +842,29 @@ body {
   width: 650px;
   height: 500px;
 }
+
+/* friends page ----------------------------------- */
+
+.friend__friend__all__container {
+  display: flex;
+  flex-direction: row;
+  width: 175px;
+}
+
+.friendpage__friend__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid blue;
+  border-radius: 6px;
+  width: 175px;
+  height: 250px;
+}
+
+.friendpage__friend__avatar {
+  height: 100px;
+  width: 100px;
+  border-radius: 75px;
+  border: 4px solid white;
+}
