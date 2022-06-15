@@ -31,9 +31,9 @@ function User() {
 
   useEffect(() => {
     socket = io({
-      autoConnect: false,
+      // autoConnect: false,
     });
-    socket.connect();
+    // socket.connect();
 
     const regex = /[^\d]/g;
 

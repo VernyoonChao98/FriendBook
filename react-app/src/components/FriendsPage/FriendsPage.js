@@ -32,9 +32,9 @@ function FriendsPage() {
 
   useEffect(() => {
     socket = io({
-      autoConnect: false,
+      // autoConnect: false,
     });
-    socket.connect();
+    // socket.connect();
 
     socket.on("friends", async (payload) => {
       if (payload.user_id !== sessionUser.id) {
@@ -50,7 +50,7 @@ function FriendsPage() {
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [dispatch]);
 
   const handleAcceptReceivedFQ = async (e, friendId) => {
     e.preventDefault();
@@ -58,7 +58,7 @@ function FriendsPage() {
       friendId,
       user_id: sessionUser.id,
     };
-    dispatch(acceptReceivedFQ(payload));
+    await dispatch(acceptReceivedFQ(payload));
     await socket.emit("friends", payload);
   };
 
@@ -68,7 +68,7 @@ function FriendsPage() {
       friendId,
       user_id: sessionUser.id,
     };
-    dispatch(cancelPendingFQ(payload));
+    await dispatch(cancelPendingFQ(payload));
     await socket.emit("friends", payload);
   };
 
@@ -79,7 +79,7 @@ function FriendsPage() {
       user_b,
       user_id: sessionUser.id,
     };
-    dispatch(createFriendFQ(payload)).then((data) => {
+    await dispatch(createFriendFQ(payload)).then((data) => {
       setErrors([]);
       if (data) {
         const validationErrors = [];
