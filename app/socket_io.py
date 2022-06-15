@@ -104,3 +104,7 @@ def delete_comment(data):
 @socketio.on('deleteCommentHome')
 def delete_comment_home(data):
     emit("deleteCommentHome", data, broadcast=True)
+
+@socketio.on("friends")
+def friends_button(data):
+    emit("friends", data, broadcast=True)

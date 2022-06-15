@@ -9,6 +9,7 @@ import { editUserProfile } from "../../store/userprofile";
 function EditUserProfileForm({ socket, setShowModal }) {
   const dispatch = useDispatch();
   const { userId } = useParams();
+  const sessionUser = useSelector((state) => state.session.user);
   const userProfile = useSelector((state) => state.userprofile)[userId];
 
   const [bio, setBio] = useState(userProfile.bio);
@@ -40,6 +41,7 @@ function EditUserProfileForm({ socket, setShowModal }) {
       bio,
       avatar_url: avatarImage,
       roomUrl,
+      user_id: sessionUser.id,
     };
 
     await dispatch(editUserProfile(payload)).then(async () => {
@@ -54,6 +56,9 @@ function EditUserProfileForm({ socket, setShowModal }) {
 
     await socket.emit("updatedProfile", payload);
     await socket.emit("updatedProfileHome", payload);
+    if (avatarImage) {
+      await socket.emit("friends", payload);
+    }
     setBio("");
     setShowModal(false);
   };

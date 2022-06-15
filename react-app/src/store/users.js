@@ -2,10 +2,15 @@ import rfdc from "rfdc";
 const clone = rfdc();
 
 const GET_ALL_USERS = "/api/GET_ALL_USERS";
+const CLEAN_USERS = "/api/CLEAN_USERS";
 
 const getUsers = (payload) => ({
   type: GET_ALL_USERS,
   payload,
+});
+
+export const cleanUsers = () => ({
+  type: CLEAN_USERS,
 });
 
 export const getAllUsers = () => async (dispatch) => {
@@ -28,6 +33,8 @@ const usersReducer = (state = initialState, action) => {
         newState[user.id] = user;
       });
       return newState;
+    case CLEAN_USERS:
+      return {};
     default:
       return state;
   }
