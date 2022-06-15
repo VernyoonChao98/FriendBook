@@ -19,6 +19,7 @@ class Friend(db.Model):
             'user_a': self.user_a,
             'user_b': self.user_b,
             'status': self.status,
+            'created_at': self.created_at,
             'sender_id': self.sender_id.to_dict(),
             'recipient_id': self.recipient_id.to_dict()
         }

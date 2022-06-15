@@ -1,10 +1,27 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import LogoutButton from "./auth/LogoutButton";
 
+import {
+  getAllFriends,
+  getAllPendingSentFQ,
+  getAllPendingReceivedFQ,
+} from "../store/friend";
+
+import { getAllUsers } from "../store/users";
+
 const NavBar = () => {
+  const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
+
+  useEffect(() => {
+    dispatch(getAllFriends({ userId: sessionUser.id }));
+    dispatch(getAllPendingSentFQ({ userId: sessionUser.id }));
+    dispatch(getAllPendingReceivedFQ({ userId: sessionUser.id }));
+    dispatch(getAllUsers());
+  });
+
   return (
     <nav className="nav__container">
       <div className="logo"></div>
