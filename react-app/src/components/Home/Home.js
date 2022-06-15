@@ -18,9 +18,9 @@ function Home() {
 
   useEffect(() => {
     socket = io({
-      autoConnect: false,
+      // autoConnect: false,
     });
-    socket.connect();
+    // socket.connect();
 
     socket.on("updatedProfileHome", async (payload) => {
       dispatch(getAllPosts());
