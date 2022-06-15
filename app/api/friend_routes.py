@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.models import Friend
+from app.models import db, Friend
 from app.forms.friend_form import FriendRequestForm
 
 friend_routes = Blueprint('friends', __name__)
@@ -30,6 +30,12 @@ def get_all_my_friend_request(id):
 def create_friend_request(id):
     form = FriendRequestForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    friendSent = Friend.query.filter( Friend.user_a == form.user_a.data, Friend.user_b == id).first()
+    friendRQ = Friend.query.filter( Friend.user_a == id, Friend.user_b == form.user_a.data).first()
+
+    if friendSent or friendRQ:
+        return {"error": "Already friends or there is a pending request."}
+
     if form.validate_on_submit():
         friend = Friend(
             user_a= form.user_a.data,
@@ -49,32 +55,34 @@ def create_friend_request(id):
 # Confirms a friend request to be friends
 @friend_routes.route("/<int:id>", methods=["PUT"])
 def confirm_friend(id):
-    form = FriendRequestForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        friend = Friend.query.get(id)
-        friend.status = True
+    # form = FriendRequestForm()
+    # form['csrf_token'].data = request.cookies['csrf_token']
+    # if form.validate_on_submit():
+    friend = Friend.query.get(id)
+    friend.status = True
 
-        db.session.add(friend)
-        db.session.commit()
+    db.session.add(friend)
+    db.session.commit()
 
-        return friend.to_dict()
+    return friend.to_dict()
 
-    if form.errors:
-        return form.errors
+    # if form.errors:
+    #     return form.errors
 
-    return {"error": "Failed"}
+    # return {"error": "Failed"}
 
-# Denies a friend request to be friends
+# Denies/Cancels a friend request to be friends
 @friend_routes.route("/<int:id>", methods=["DELETE"])
 def delete_friend(id):
     if (id):
         friend = Friend.query.get(id)
 
+        old_friend = friend.to_dict()
+
         db.session.delete(friend)
         db.session.commit()
 
-        return friend.to_dict()
+        return old_friend
     else:
         return {"error": "No friend was found to delete"}
 
