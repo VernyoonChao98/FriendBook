@@ -9,6 +9,8 @@ import {
   getAllPendingReceivedFQ,
 } from "../store/friend";
 
+import { getAllUsers } from "../store/users";
+
 const NavBar = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
@@ -17,6 +19,7 @@ const NavBar = () => {
     dispatch(getAllFriends({ userId: sessionUser.id }));
     dispatch(getAllPendingSentFQ({ userId: sessionUser.id }));
     dispatch(getAllPendingReceivedFQ({ userId: sessionUser.id }));
+    dispatch(getAllUsers());
   });
 
   return (

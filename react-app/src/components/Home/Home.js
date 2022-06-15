@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 
 import { getAllPosts, cleanPost } from "../../store/post";
-import { getAllUsers } from "../../store/users";
 
 import CreatePostModal from "../Modal/CreatePostModal";
 
@@ -53,7 +52,6 @@ function Home() {
     });
 
     dispatch(getAllPosts()).then(() => {
-      dispatch(getAllUsers());
       setIsLoaded(true);
     });
 
