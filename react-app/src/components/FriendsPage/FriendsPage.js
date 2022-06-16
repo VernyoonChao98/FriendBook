@@ -281,7 +281,7 @@ function FriendsPage() {
       <div className="height">
         <span className="friendpage__container__text">People you may know</span>
         {errors.map((error, ind) => (
-          <div style={{ color: "red", marginLeft: "10px" }} key={ind}>
+          <div className="friendpage__friend__error" key={ind}>
             {error}
           </div>
         ))}
