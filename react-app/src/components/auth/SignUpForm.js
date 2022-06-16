@@ -156,7 +156,7 @@ const SignUpForm = ({ setShowModal }) => {
         <div className="create__account__input__name__container">
           <input
             className="create__account__input"
-            type="text"
+            type="email"
             name="email"
             onChange={updateEmail}
             value={email}
@@ -170,7 +170,6 @@ const SignUpForm = ({ setShowModal }) => {
             name="password"
             onChange={updatePassword}
             value={password}
-            required={true}
             placeholder="New password"
           ></input>
         </div>
@@ -181,7 +180,6 @@ const SignUpForm = ({ setShowModal }) => {
             name="repeat_password"
             onChange={updateRepeatPassword}
             value={repeatPassword}
-            required={true}
             placeholder="Confirm password"
           ></input>
         </div>
@@ -237,10 +235,7 @@ const SignUpForm = ({ setShowModal }) => {
           </select>
         </div>
         <div className="create__account__input__name__container">
-          <button
-            onClick={onSignUp}
-            className="create__account__submit__button"
-          >
+          <button type="submit" className="create__account__submit__button">
             Sign Up
           </button>
         </div>
