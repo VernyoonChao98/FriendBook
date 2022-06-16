@@ -97,3 +97,16 @@ Splash Page
 
 ![image](https://user-images.githubusercontent.com/29737123/174101321-d59240f5-149c-42c0-a175-f966f0d853e8.png)
 
+Home Page
+
+![image](https://user-images.githubusercontent.com/29737123/174101532-e2f4232b-bf37-4aa3-8c71-ffced7f5e55e.png)
+
+Profile Page
+
+![image](https://user-images.githubusercontent.com/29737123/174101594-6ca338e0-e837-4ee6-a83d-b0d1bce8c4bb.png)
+
+Friends Page
+
+![image](https://user-images.githubusercontent.com/29737123/174101681-bed8a3e6-57f0-420e-9cd4-e25fa325803a.png)
+
+
