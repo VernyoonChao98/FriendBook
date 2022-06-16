@@ -93,7 +93,7 @@ const SignUpForm = ({ setShowModal }) => {
         <div className="text__two">It’s quick and easy.</div>
       </div>
       <form onSubmit={onSignUp}>
-        <div>
+        <div className="errors__login">
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
           ))}

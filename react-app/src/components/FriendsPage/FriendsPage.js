@@ -50,7 +50,7 @@ function FriendsPage() {
     return () => {
       socket.disconnect();
     };
-  }, [dispatch]);
+  }, [dispatch, sessionUser.id]);
 
   const handleAcceptReceivedFQ = async (e, friendId) => {
     e.preventDefault();
@@ -92,9 +92,11 @@ function FriendsPage() {
   };
 
   return (
-    <div>
+    <div className="friendpage__main__content">
       <div className="height">
-        <span>My Friends</span>
+        <span className="friendpage__container__text">
+          My Friends ({Object.values(friends).length})
+        </span>
         <div className="friend__friend__all__container">
           {Object.values(friends).map((friend) => {
             return (
@@ -145,7 +147,9 @@ function FriendsPage() {
         </div>
       </div>
       <div className="height">
-        <span>Friend Requests</span>
+        <span className="friendpage__container__text">
+          Friend Requests ({Object.values(pendingReceivedFQs).length})
+        </span>
         <div className="friend__friend__all__container">
           {Object.values(pendingReceivedFQs).map((friend) => {
             return (
@@ -210,7 +214,9 @@ function FriendsPage() {
         </div>
       </div>
       <div className="height">
-        <span>Sent Requests</span>
+        <span className="friendpage__container__text">
+          Sent Requests ({Object.values(pendingSentFQs).length})
+        </span>
         <div className="friend__friend__all__container">
           {Object.values(pendingSentFQs).map((friend) => {
             return (
@@ -261,9 +267,11 @@ function FriendsPage() {
         </div>
       </div>
       <div className="height">
-        <span>Users</span>
+        <span className="friendpage__container__text">People you may know</span>
         {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
+          <div style={{ color: "red", marginLeft: "10px" }} key={ind}>
+            {error}
+          </div>
         ))}
         <div className="friend__friend__all__container">
           {Object.values(otherUsers).map((user) => {
