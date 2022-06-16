@@ -15,8 +15,6 @@ Git wiki: https://github.com/VernyoonChao98/FriendBook/wiki
 
 ---
 
-Friendbook
-
 Friendbook is a Full Stack Facebook clone. It is a place for people to social network.
 
 ## Getting started
