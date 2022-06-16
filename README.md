@@ -1,6 +1,6 @@
-# Komication
+# Friendbook
 
-komication Live Link: [https://komication.herokuapp.com/](https://thefriendbook.herokuapp.com/)
+Friendbook Live Link: [https://komication.herokuapp.com/](https://thefriendbook.herokuapp.com/)
 
 Git wiki: https://github.com/VernyoonChao98/FriendBook/wiki
 
