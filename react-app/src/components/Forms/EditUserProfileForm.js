@@ -15,6 +15,7 @@ function EditUserProfileForm({ socket, setShowModal }) {
   const [bio, setBio] = useState(userProfile.bio);
   const [avatarImage, setAvatarImage] = useState();
   const [previewUrl, setPreviewUrl] = useState();
+  const [imageLoading, setImageLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const [errors, setErrors] = useState([]);
@@ -25,14 +26,17 @@ function EditUserProfileForm({ socket, setShowModal }) {
     e.preventDefault();
     setErrors([]);
 
+    setImageLoading(true);
+
     const validationErrors = [];
 
     if (bio.length > 100) {
-      validationErrors.push("Post exceeds character limit 100.");
+      validationErrors.push("Bio exceeds character limit 100.");
     }
 
     if (validationErrors.length) {
       setErrors(validationErrors);
+      setImageLoading(false);
       return;
     }
 
@@ -60,6 +64,7 @@ function EditUserProfileForm({ socket, setShowModal }) {
       await socket.emit("friends", payload);
     }
     setBio("");
+    setImageLoading(false);
     setShowModal(false);
   };
 
@@ -105,6 +110,7 @@ function EditUserProfileForm({ socket, setShowModal }) {
               </>
             )}
           </div>
+          {imageLoading && <p className="image__upload__loading">Loading...</p>}
           <input
             type="file"
             accept="image/*"

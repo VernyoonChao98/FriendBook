@@ -11,11 +11,13 @@ function EditUserBannerForm({ socket, setShowModal }) {
   const [bannerImage, setBannerImage] = useState();
   const [previewUrl, setPreviewUrl] = useState();
   const [submitted, setSubmitted] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
 
   const roomUrl = window.location.pathname;
 
   const editMyBannerImage = async (e) => {
     e.preventDefault();
+    setImageLoading(true);
     const payload = {
       userId,
       banner_url: bannerImage,
@@ -25,6 +27,7 @@ function EditUserBannerForm({ socket, setShowModal }) {
     await dispatch(editBannerImage(payload));
 
     await socket.emit("updatedBanner", payload);
+    setImageLoading(false);
     setShowModal(false);
   };
 
@@ -69,6 +72,7 @@ function EditUserBannerForm({ socket, setShowModal }) {
             </>
           )}
         </div>
+        {imageLoading && <p className="image__upload__loading">Loading...</p>}
         <input
           type="file"
           accept="image/*"

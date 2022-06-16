@@ -118,6 +118,13 @@ body {
   cursor: default;
 }
 
+.errors__login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Create account form -----------------------------------------*/
 
 .create_button {
@@ -847,6 +854,10 @@ body {
   border: 1px solid black;
 }
 
+.image__upload__loading {
+  font-size: 20px;
+}
+
 /* 404 ------------------------------- */
 
 .page__not__found__background {
@@ -866,6 +877,10 @@ body {
 }
 
 /* friends page ----------------------------------- */
+
+.friendpage__main__content {
+  margin-top: 10px;
+}
 
 .friend__friend__all__container {
   display: flex;
@@ -895,5 +910,12 @@ body {
 }
 
 .height {
-  height: 300px;
+  height: 305px;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.friendpage__container__text {
+  margin-left: 10px;
 }
