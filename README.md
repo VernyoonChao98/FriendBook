@@ -92,3 +92,8 @@ Friendbook is a Full Stack Facebook clone. It is a place for people to social ne
 ![Socket.io](https://img.shields.io/badge/Socket.io-010101?&style=for-the-badge&logo=Socket.io&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
 ![Postgresql](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+
+Splash Page
+
+![image](https://user-images.githubusercontent.com/29737123/174101321-d59240f5-149c-42c0-a175-f966f0d853e8.png)
+
