@@ -117,11 +117,7 @@ function Posts({ socket }) {
                   );
                 })}
               </div>
-              <CreateCommentForm
-                dummyComment={dummyComment}
-                socket={socket}
-                post={post}
-              />
+              <CreateCommentForm socket={socket} post={post} />
             </div>
           );
         })}
