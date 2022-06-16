@@ -34,7 +34,12 @@ const SignUpForm = ({ setShowModal }) => {
     let birthday = new Date(`${day} ${month} ${year}`);
     birthday = birthday.toISOString();
 
-    if (password === repeatPassword) {
+    if (
+      firstName.length < 16 &&
+      lastName.length < 16 &&
+      username.length < 21 &&
+      password === repeatPassword
+    ) {
       const data = await dispatch(
         signUp(firstName, lastName, username, email, password, birthday)
       );
@@ -48,11 +53,26 @@ const SignUpForm = ({ setShowModal }) => {
       if (!firstName) {
         validationErrors.push("firstname : This field is required.");
       }
+      if (firstName.length > 15) {
+        validationErrors.push(
+          "firstname : First name exceeds character limit 15."
+        );
+      }
       if (!lastName) {
         validationErrors.push("lastname : This field is required.");
       }
+      if (lastName.length > 15) {
+        validationErrors.push(
+          "lastname : Last name exceeds character limit 15."
+        );
+      }
       if (!username) {
         validationErrors.push("username : This field is required.");
+      }
+      if (username.length > 20) {
+        validationErrors.push(
+          "username : Username exceeds character limit 20."
+        );
       }
       if (!email) {
         validationErrors.push("email : This field is required.");
@@ -108,6 +128,7 @@ const SignUpForm = ({ setShowModal }) => {
             }}
             value={firstName}
             placeholder="First name"
+            maxLength={16}
           ></input>
           <input
             className="create__account__input__name"
@@ -118,6 +139,7 @@ const SignUpForm = ({ setShowModal }) => {
             }}
             value={lastName}
             placeholder="Last name"
+            maxLength={16}
           ></input>
         </div>
         <div className="create__account__input__name__container">
@@ -128,6 +150,7 @@ const SignUpForm = ({ setShowModal }) => {
             onChange={updateUsername}
             value={username}
             placeholder="Username"
+            maxLength={21}
           ></input>
         </div>
         <div className="create__account__input__name__container">
