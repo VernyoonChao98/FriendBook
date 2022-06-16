@@ -21,9 +21,6 @@ function SplashPage() {
         </div>
       </div>
       <footer className="footer">
-        {/* <ExternalLink href="https://www.linkedin.com/in/vernyoon-chao-783494123/">
-          Portfolio
-        </ExternalLink> */}
         <ExternalLink
           className="external_link"
           href="https://www.linkedin.com/in/vernyoon-chao-783494123/"
