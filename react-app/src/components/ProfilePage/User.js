@@ -9,6 +9,15 @@ import { getUserProfile, cleanUserProfile } from "../../store/userprofile";
 
 import { getUsersPosts, cleanPost } from "../../store/post";
 
+import {
+  cleanFriends,
+  getAllFriends,
+  getAllPendingSentFQ,
+  getAllPendingReceivedFQ,
+} from "../../store/friend";
+
+import { getAllUsers, cleanUsers } from "../../store/users";
+
 import CreatePostModal from "../Modal/CreatePostModal";
 import EditUserProfileModal from "../Modal/EditUserProfileModal";
 import EditUserBannerModal from "../Modal/EditUserBannerModal";
@@ -23,6 +32,7 @@ function User() {
   const { userId } = useParams();
   const sessionUser = useSelector((state) => state.session.user);
   const userProfile = useSelector((state) => state.userprofile)[userId];
+  const friends = useSelector((state) => state.friends.friends);
 
   const [isLoaded, setIsLoaded] = useState(false);
   // const [previewUrl, setPreviewUrl] = useState();
@@ -98,6 +108,17 @@ function User() {
       dispatch(getUsersPosts(payload));
     });
 
+    socket.on("friends", async (payload) => {
+      if (payload.user_id !== sessionUser.id) {
+        await dispatch(cleanFriends());
+        await dispatch(cleanUsers());
+        await dispatch(getAllFriends({ userId: sessionUser.id }));
+        await dispatch(getAllPendingSentFQ({ userId: sessionUser.id }));
+        await dispatch(getAllPendingReceivedFQ({ userId: sessionUser.id }));
+        await dispatch(getAllUsers());
+      }
+    });
+
     dispatch(getUserProfile(payload))
       .then((data) => {
         if (!data.ok) {
@@ -153,7 +174,19 @@ function User() {
                 <span className="userprofile__top__username">
                   {userProfile?.username}
                 </span>
-                <span className="">0 friends</span>
+                <span className="">
+                  {Object.values(friends).length === 0 ? (
+                    <></>
+                  ) : (
+                    <>
+                      {Object.values(friends).length === 1 ? (
+                        <>{Object.values(friends).length} Friend</>
+                      ) : (
+                        <>{Object.values(friends).length} Friends</>
+                      )}
+                    </>
+                  )}
+                </span>
               </div>
             </div>
             {sessionUser?.id === userProfile?.id ? (

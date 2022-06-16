@@ -113,11 +113,12 @@ function FriendsPage() {
                     <div>{friend.recipient_id.lastname}</div>
                     <div>{moment(friend.created_at).format("L")}</div>
                     <button
+                      className="friendpage__remove__friend__button"
                       onClick={(e) => {
                         handleCancelPendingFQ(e, friend.id);
                       }}
                     >
-                      Unfriend
+                      Remove Friend
                     </button>
                   </div>
                 ) : null}
@@ -133,11 +134,12 @@ function FriendsPage() {
                     <div>{friend.sender_id.lastname}</div>
                     <div>{moment(friend.created_at).format("L")}</div>
                     <button
+                      className="friendpage__remove__friend__button"
                       onClick={(e) => {
                         handleCancelPendingFQ(e, friend.id);
                       }}
                     >
-                      Unfriend
+                      Remove Friend
                     </button>
                   </div>
                 ) : null}
@@ -165,20 +167,24 @@ function FriendsPage() {
                     <div>{friend.recipient_id.firstname}</div>
                     <div>{friend.recipient_id.lastname}</div>
                     <div>{moment(friend.created_at).format("L")}</div>
-                    <button
-                      onClick={(e) => {
-                        handleAcceptReceivedFQ(e, friend.id);
-                      }}
-                    >
-                      Accept
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        handleCancelPendingFQ(e, friend.id);
-                      }}
-                    >
-                      Deny
-                    </button>
+                    <div className="friendpage__two__buttons">
+                      <button
+                        className="friendpage__accept__friend__button"
+                        onClick={(e) => {
+                          handleAcceptReceivedFQ(e, friend.id);
+                        }}
+                      >
+                        Accept
+                      </button>
+                      <button
+                        className="friendpage__remove__friend__button"
+                        onClick={(e) => {
+                          handleCancelPendingFQ(e, friend.id);
+                        }}
+                      >
+                        Deny
+                      </button>
+                    </div>
                   </div>
                 ) : null}
                 {friend.sender_id.id !== sessionUser.id ? (
@@ -192,20 +198,24 @@ function FriendsPage() {
                     <div>{friend.sender_id.firstname}</div>
                     <div>{friend.sender_id.lastname}</div>
                     <div>{moment(friend.created_at).format("L")}</div>
-                    <button
-                      onClick={(e) => {
-                        handleAcceptReceivedFQ(e, friend.id);
-                      }}
-                    >
-                      Accept
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        handleCancelPendingFQ(e, friend.id);
-                      }}
-                    >
-                      Deny
-                    </button>
+                    <div className="friendpage__two__buttons">
+                      <button
+                        className="friendpage__accept__friend__button"
+                        onClick={(e) => {
+                          handleAcceptReceivedFQ(e, friend.id);
+                        }}
+                      >
+                        Accept
+                      </button>
+                      <button
+                        className="friendpage__remove__friend__button"
+                        onClick={(e) => {
+                          handleCancelPendingFQ(e, friend.id);
+                        }}
+                      >
+                        Deny
+                      </button>
+                    </div>
                   </div>
                 ) : null}
               </div>
@@ -233,6 +243,7 @@ function FriendsPage() {
                     <div>{friend.recipient_id.lastname}</div>
                     <div>{moment(friend.created_at).format("L")}</div>
                     <button
+                      className="friendpage__remove__friend__button"
                       onClick={(e) => {
                         handleCancelPendingFQ(e, friend.id);
                       }}
@@ -253,6 +264,7 @@ function FriendsPage() {
                     <div>{friend.sender_id.lastname}</div>
                     <div>{moment(friend.created_at).format("L")}</div>
                     <button
+                      className="friendpage__remove__friend__button"
                       onClick={(e) => {
                         handleCancelPendingFQ(e, friend.id);
                       }}
@@ -290,6 +302,7 @@ function FriendsPage() {
                     <div>{user.firstname}</div>
                     <div>{user.lastname}</div>
                     <button
+                      className="friendpage__send__friend__button"
                       onClick={(e) => {
                         handleSendFQ(e, user.id);
                       }}
