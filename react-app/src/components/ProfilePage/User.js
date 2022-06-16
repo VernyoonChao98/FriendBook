@@ -39,8 +39,6 @@ function User() {
 
   const roomUrl = window.location.pathname;
 
-  console.log(roomUrl);
-
   useEffect(() => {
     socket = io({
       // autoConnect: false,
