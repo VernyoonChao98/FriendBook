@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     birthday = db.Column(db.DateTime, nullable=False)
     avatar_url = db.Column(db.String(255), default="https://friendbookclone.s3.us-west-1.amazonaws.com/9687c30044d7432f8f9d9f84960459aa.jpg")
     banner_url = db.Column(db.String(255), default="https://friendbookclone.s3.us-west-1.amazonaws.com/89824dbbec0e49b298c26fb0c2d9005d.jpg")
+    online = db.Column(db.Boolean, default=False)
 
     posts = db.relationship("Post", back_populates="user")
     comments = db.relationship("Comment", back_populates="user")
@@ -44,5 +45,6 @@ class User(db.Model, UserMixin):
             'bio': self.bio,
             "birthday": self.birthday,
             "avatar_url": self.avatar_url,
-            "banner_url": self.banner_url
+            "banner_url": self.banner_url,
+            "online": self.online
         }

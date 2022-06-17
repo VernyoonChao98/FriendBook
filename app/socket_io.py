@@ -11,21 +11,21 @@ def test_disconnect():
 # def handle_chat(data):
 #     emit("chat", broadcast=True, to=data["room"])
 
-# @socketio.on("online")
-# def turn_online(data):
-#     user = User.query.get(data["id"])
-#     user.online = True
-#     db.session.add(user)
-#     db.session.commit()
-#     emit("online", broadcast=True)
+@socketio.on("online")
+def turn_online(data):
+    user = User.query.get(data["id"])
+    user.online = True
+    db.session.add(user)
+    db.session.commit()
+    emit("online", broadcast=True)
 
-# @socketio.on("offline")
-# def turn_online(data):
-#     user = User.query.get(data["id"])
-#     user.online = False
-#     db.session.add(user)
-#     db.session.commit()
-#     emit("offline", broadcast=True)
+@socketio.on("offline")
+def turn_online(data):
+    user = User.query.get(data["id"])
+    user.online = False
+    db.session.add(user)
+    db.session.commit()
+    emit("offline", broadcast=True)
 
 @socketio.on('join')
 def on_join(data):
