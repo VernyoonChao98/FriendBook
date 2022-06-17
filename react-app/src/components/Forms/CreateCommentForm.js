@@ -20,7 +20,9 @@ function CreateCommentForm({ socket, post }) {
       roomUrl = `/profile/${post.user_id}`;
     }
 
-    if (!content.length) {
+    console.log(content.trim().length === 0);
+
+    if (!content.length || content.trim().length === 0) {
       validationErrors.push("Comment can not be Empty!");
     }
 

@@ -20,7 +20,7 @@ function EditCommentForm({ socket, setShowMenu, post, comment, setShowModal }) {
 
     const validationErrors = [];
 
-    if (!content.length) {
+    if (!content.length || content.trim().length === 0) {
       validationErrors.push("Comment can not be Empty!");
     }
 

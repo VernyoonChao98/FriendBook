@@ -21,7 +21,7 @@ function CreatePostForm({ socket, setShowModal }) {
       roomUrl = `/profile/${user.id}`;
     }
 
-    if (!content.length) {
+    if (!content.length || content.trim().length === 0) {
       validationErrors.push("Post can not be Empty!");
     }
 
