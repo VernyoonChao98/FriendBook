@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,6 +9,7 @@ import { editUserProfile } from "../../store/userprofile";
 function EditUserProfileForm({ socket, setShowModal }) {
   const dispatch = useDispatch();
   const { userId } = useParams();
+  const uploadHiddenInput = useRef();
   const sessionUser = useSelector((state) => state.session.user);
   const userProfile = useSelector((state) => state.userprofile)[userId];
 
@@ -77,6 +78,11 @@ function EditUserProfileForm({ socket, setShowModal }) {
     setSubmitted(true);
   };
 
+  const handleUpload = (e) => {
+    e.preventDefault();
+    uploadHiddenInput.current.click();
+  };
+
   return (
     <div>
       <form
@@ -111,10 +117,16 @@ function EditUserProfileForm({ socket, setShowModal }) {
             )}
           </div>
           {imageLoading && <p className="image__upload__loading">Loading...</p>}
+          <button className="upload__image__button" onClick={handleUpload}>
+            Choose Image
+          </button>
           <input
+            name="upload"
             type="file"
             accept="image/*"
+            ref={uploadHiddenInput}
             onChange={updateAvatarImage}
+            hidden
           ></input>
         </div>
         <textarea

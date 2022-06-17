@@ -915,6 +915,16 @@ body {
   border: 1px solid black;
 }
 
+.upload__image__button {
+  background-color: #1877f2;
+  color: white;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
 .edit__user__profile__bio__input {
   font-size: 1.5rem;
   font-weight: 400;

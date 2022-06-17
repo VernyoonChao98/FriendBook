@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -7,6 +7,7 @@ import { editBannerImage } from "../../store/userprofile";
 function EditUserBannerForm({ socket, setShowModal }) {
   const dispatch = useDispatch();
   const { userId } = useParams();
+  const uploadHiddenInput = useRef();
 
   const [bannerImage, setBannerImage] = useState();
   const [previewUrl, setPreviewUrl] = useState();
@@ -38,6 +39,11 @@ function EditUserBannerForm({ socket, setShowModal }) {
       setPreviewUrl(URL.createObjectURL(file));
     }
     setSubmitted(true);
+  };
+
+  const handleUpload = (e) => {
+    e.preventDefault();
+    uploadHiddenInput.current.click();
   };
 
   return (
@@ -73,10 +79,16 @@ function EditUserBannerForm({ socket, setShowModal }) {
           )}
         </div>
         {imageLoading && <p className="image__upload__loading">Loading...</p>}
+        <button className="upload__image__button" onClick={handleUpload}>
+          Choose Image
+        </button>
         <input
+          name="upload"
           type="file"
           accept="image/*"
+          ref={uploadHiddenInput}
           onChange={updateBannerImage}
+          hidden
         ></input>
         {submitted === true ? (
           <button
