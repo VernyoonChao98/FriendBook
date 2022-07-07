@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import LogoutButton from "./auth/LogoutButton";
+import Search from "./Search";
 
 import {
   getAllFriends,
@@ -20,7 +21,7 @@ const NavBar = () => {
     dispatch(getAllFriends({ userId: sessionUser.id }));
     dispatch(getAllPendingSentFQ({ userId: sessionUser.id }));
     dispatch(getAllPendingReceivedFQ({ userId: sessionUser.id }));
-    dispatch(getAllUsers());
+    // dispatch(getAllUsers());
 
     return () => {
       dispatch(cleanFriends());
@@ -33,6 +34,7 @@ const NavBar = () => {
         <div className="logo"></div>
         {/* <div>search</div> */}
       </div>
+      <Search />
       <div className="navlinks">
         <NavLink
           className="home"

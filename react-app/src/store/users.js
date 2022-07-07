@@ -13,8 +13,9 @@ export const cleanUsers = () => ({
   type: CLEAN_USERS,
 });
 
-export const getAllUsers = () => async (dispatch) => {
-  const response = await fetch(`/api/users/`);
+export const getAllUsers = (searchInput) => async (dispatch) => {
+  console.log(searchInput);
+  const response = await fetch(`/api/users/search/${searchInput}`);
 
   if (response.ok) {
     const users = await response.json();

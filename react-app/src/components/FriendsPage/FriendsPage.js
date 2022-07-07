@@ -43,7 +43,7 @@ function FriendsPage() {
         await dispatch(getAllFriends({ userId: sessionUser.id }));
         await dispatch(getAllPendingSentFQ({ userId: sessionUser.id }));
         await dispatch(getAllPendingReceivedFQ({ userId: sessionUser.id }));
-        await dispatch(getAllUsers());
+        // await dispatch(getAllUsers());
       }
     });
 

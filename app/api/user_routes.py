@@ -9,10 +9,13 @@ from app.api.aws_s3_bucket import (
 user_routes = Blueprint('users', __name__)
 
 
-@user_routes.route('/')
+@user_routes.route('/search/<string:search_input>')
 @login_required
-def users():
-    users = User.query.all()
+def users(search_input):
+    search_input = str(search_input)
+    users = User.query.filter(User.username.ilike(f"%{search_input}%")).all()
+    print(search_input)
+    print(users)
     return {'users': [user.to_dict() for user in users]}
 
 

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
-import { io } from "socket.io-client";
 import { useHistory } from "react-router-dom";
+
+import moment from "moment";
+
+import { io } from "socket.io-client";
 
 import { getUserProfile, cleanUserProfile } from "../../store/userprofile";
 
@@ -43,6 +45,7 @@ function User() {
     socket = io({
       // autoConnect: false,
     });
+
     // socket.connect();
 
     const regex = /[^\d]/g;
@@ -115,7 +118,7 @@ function User() {
         await dispatch(getAllFriends({ userId: sessionUser.id }));
         await dispatch(getAllPendingSentFQ({ userId: sessionUser.id }));
         await dispatch(getAllPendingReceivedFQ({ userId: sessionUser.id }));
-        await dispatch(getAllUsers());
+        // await dispatch(getAllUsers());
       }
     });
 
@@ -187,6 +190,7 @@ function User() {
                     </>
                   )}
                 </span>
+                <button>Add Friend</button>
               </div>
             </div>
             {sessionUser?.id === userProfile?.id ? (
