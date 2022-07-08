@@ -12,7 +12,9 @@ function Search() {
   const [ignoreBlur, setIgnoreBlur] = useState(false);
 
   useEffect(() => {
-    dispatch(getAllUsers(searchInput));
+    if (searchInput.length > 0) {
+      dispatch(getAllUsers(searchInput));
+    }
     return () => {
       dispatch(cleanUsers());
     };
@@ -51,6 +53,7 @@ function Search() {
                   <NavLink
                     onClick={(e) => {
                       setSearchInput("");
+                      setFocused(false);
                     }}
                     to={`/profile/${user.id}`}
                   >

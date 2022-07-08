@@ -190,7 +190,9 @@ function User() {
                     </>
                   )}
                 </span>
-                <button>Add Friend</button>
+                {sessionUser?.id !== userProfile?.id ? (
+                  <button>Add Friend</button>
+                ) : null}
               </div>
             </div>
             {sessionUser?.id === userProfile?.id ? (

@@ -14,8 +14,6 @@ user_routes = Blueprint('users', __name__)
 def users(search_input):
     search_input = str(search_input)
     users = User.query.filter(User.username.ilike(f"%{search_input}%")).all()
-    print(search_input)
-    print(users)
     return {'users': [user.to_dict() for user in users]}
 
 
