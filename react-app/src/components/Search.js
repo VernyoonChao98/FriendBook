@@ -22,6 +22,7 @@ function Search() {
 
   return (
     <div
+      className="search"
       onMouseDown={(e) => {
         setIgnoreBlur(true);
       }}
@@ -45,25 +46,33 @@ function Search() {
         }}
       ></input>
       {focused && (
-        <div>
+        <div className="search__options">
           {Object.values(searchedUsers).length ? (
             <>
               {Object.values(searchedUsers).map((user) => {
                 return (
                   <NavLink
+                    style={{ textDecoration: "none", color: "black" }}
                     onClick={(e) => {
                       setSearchInput("");
                       setFocused(false);
                     }}
                     to={`/profile/${user.id}`}
                   >
-                    {user.username}
+                    <div className="each__search__options">
+                      <img
+                        className="home__create__comment__avatar"
+                        src={user.avatar_url}
+                        alt="createCommentAvatar"
+                      />{" "}
+                      {user.username}
+                    </div>
                   </NavLink>
                 );
               })}
             </>
           ) : (
-            <>No users found</>
+            <div className="each__search__options">No users found</div>
           )}
         </div>
       )}
