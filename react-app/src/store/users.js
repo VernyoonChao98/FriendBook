@@ -26,7 +26,7 @@ export const getAllUsers = (searchInput) => async (dispatch) => {
 const initialState = {};
 
 const usersReducer = (state = initialState, action) => {
-  const newState = clone(state);
+  // const newState = clone(state);
   switch (action.type) {
     case GET_ALL_USERS:
       const newObj = {};

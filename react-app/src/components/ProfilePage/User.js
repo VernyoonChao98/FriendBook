@@ -24,6 +24,8 @@ import CreatePostModal from "../Modal/CreatePostModal";
 import EditUserProfileModal from "../Modal/EditUserProfileModal";
 import EditUserBannerModal from "../Modal/EditUserBannerModal";
 
+import FriendNumber from "./FriendNumber";
+
 import Posts from "../Posts";
 
 let socket;
@@ -35,8 +37,26 @@ function User() {
   const sessionUser = useSelector((state) => state.session.user);
   const userProfile = useSelector((state) => state.userprofile)[userId];
   const friends = useSelector((state) => state.friends.friends);
+  const [checkIfFriend, setCheckIfFriend] = useState(false);
 
-  console.log(userProfile?.sender);
+  if (userProfile && userId !== sessionUser.id) {
+    let keys1 = Object?.keys(userProfile?.sender);
+    keys1.forEach((key) => {
+      if (friends[key]) {
+        if (checkIfFriend) return;
+        setCheckIfFriend(true);
+      }
+    });
+    let keys2 = Object?.keys(userProfile?.recipient);
+    keys2.forEach((key) => {
+      if (friends[key]) {
+        if (checkIfFriend) return;
+        setCheckIfFriend(true);
+      }
+    });
+  }
+
+  console.log(checkIfFriend);
 
   const [isLoaded, setIsLoaded] = useState(false);
   // const [previewUrl, setPreviewUrl] = useState();
@@ -179,33 +199,15 @@ function User() {
                 <span className="userprofile__top__username">
                   {userProfile?.username}
                 </span>
-                <span className="">
-                  {Object?.values(userProfile?.sender)?.length +
-                    Object?.values(userProfile?.recipient)?.length ===
-                  0 ? (
-                    <></>
-                  ) : (
-                    <>
-                      {Object?.values(userProfile?.sender)?.length +
-                        Object?.values(userProfile?.recipient)?.length ===
-                      1 ? (
-                        <>
-                          {Object?.values(userProfile?.sender)?.length +
-                            Object?.values(userProfile?.recipient)?.length}{" "}
-                          Friend
-                        </>
-                      ) : (
-                        <>
-                          {Object?.values(userProfile?.sender)?.length +
-                            Object?.values(userProfile?.recipient)?.length}{" "}
-                          Friends
-                        </>
-                      )}
-                    </>
-                  )}
-                </span>
+                <FriendNumber />
                 {sessionUser?.id !== userProfile?.id ? (
-                  <button>Add Friend</button>
+                  <>
+                    {checkIfFriend === false ? (
+                      <button>Add Friend</button>
+                    ) : (
+                      <button>Already Friends</button>
+                    )}
+                  </>
                 ) : null}
               </div>
             </div>

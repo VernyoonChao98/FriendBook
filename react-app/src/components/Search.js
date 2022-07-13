@@ -79,7 +79,15 @@ function Search() {
               })}
             </>
           ) : (
-            <div className="each__search__options">No users found</div>
+            <div
+              className="each__search__options"
+              tabIndex={1}
+              onBlur={(e) => {
+                setFocused(false);
+              }}
+            >
+              No users found
+            </div>
           )}
         </div>
       )}
