@@ -36,6 +36,8 @@ function User() {
   const userProfile = useSelector((state) => state.userprofile)[userId];
   const friends = useSelector((state) => state.friends.friends);
 
+  console.log(userProfile?.sender);
+
   const [isLoaded, setIsLoaded] = useState(false);
   // const [previewUrl, setPreviewUrl] = useState();
 
@@ -178,14 +180,26 @@ function User() {
                   {userProfile?.username}
                 </span>
                 <span className="">
-                  {Object.values(friends).length === 0 ? (
+                  {Object?.values(userProfile?.sender)?.length +
+                    Object?.values(userProfile?.recipient)?.length ===
+                  0 ? (
                     <></>
                   ) : (
                     <>
-                      {Object.values(friends).length === 1 ? (
-                        <>{Object.values(friends).length} Friend</>
+                      {Object?.values(userProfile?.sender)?.length +
+                        Object?.values(userProfile?.recipient)?.length ===
+                      1 ? (
+                        <>
+                          {Object?.values(userProfile?.sender)?.length +
+                            Object?.values(userProfile?.recipient)?.length}{" "}
+                          Friend
+                        </>
                       ) : (
-                        <>{Object.values(friends).length} Friends</>
+                        <>
+                          {Object?.values(userProfile?.sender)?.length +
+                            Object?.values(userProfile?.recipient)?.length}{" "}
+                          Friends
+                        </>
                       )}
                     </>
                   )}

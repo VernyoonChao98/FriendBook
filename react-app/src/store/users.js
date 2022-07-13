@@ -14,12 +14,12 @@ export const cleanUsers = () => ({
 });
 
 export const getAllUsers = (searchInput) => async (dispatch) => {
-  console.log(searchInput);
   const response = await fetch(`/api/users/search/${searchInput}`);
 
   if (response.ok) {
     const users = await response.json();
     dispatch(getUsers(users));
+    return users;
   }
 };
 
@@ -29,11 +29,12 @@ const usersReducer = (state = initialState, action) => {
   const newState = clone(state);
   switch (action.type) {
     case GET_ALL_USERS:
+      const newObj = {};
       const users = action.payload.users;
       users.forEach((user) => {
-        newState[user.id] = user;
+        newObj[user.id] = user;
       });
-      return newState;
+      return newObj;
     case CLEAN_USERS:
       return {};
     default:

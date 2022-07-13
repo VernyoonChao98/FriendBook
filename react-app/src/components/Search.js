@@ -14,10 +14,16 @@ function Search() {
   useEffect(() => {
     if (searchInput.length > 0) {
       dispatch(getAllUsers(searchInput));
+    } else {
+      setTimeout(() => dispatch(cleanUsers()), 100);
     }
-    return () => {
-      dispatch(cleanUsers());
-    };
+
+    if (searchInput.length === 0) {
+      return () => {
+        console.log("hello");
+        dispatch(cleanUsers());
+      };
+    }
   }, [dispatch, searchInput]);
 
   return (
@@ -52,6 +58,7 @@ function Search() {
               {Object.values(searchedUsers).map((user) => {
                 return (
                   <NavLink
+                    key={user.id}
                     style={{ textDecoration: "none", color: "black" }}
                     onClick={(e) => {
                       setSearchInput("");

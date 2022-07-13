@@ -95,7 +95,7 @@ body {
   padding-top: 10px;
   padding-bottom: 24px;
   margin: 40px 0 0;
-  width: 396px;
+  min-width: 396px;
   background-color: white;
   border-radius: 6px;
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);

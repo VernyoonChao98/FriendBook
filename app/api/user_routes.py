@@ -21,7 +21,12 @@ def users(search_input):
 @login_required
 def user(id):
     user = User.query.get(id)
-    return user.to_dict()
+    sender = [user.to_dict() for user in user.sender if user.status == True]
+    recipient = [user.to_dict() for user in user.recipient if user.status == True]
+    user = user.to_dict()
+    user["sender"] = sender
+    user["recipient"] = recipient
+    return user
 
 @user_routes.route('/profile/<int:id>', methods=["PUT"])
 def profile_avatar_edit(id):
@@ -53,7 +58,13 @@ def profile_avatar_edit(id):
 
         db.session.add(user)
         db.session.commit()
-        return user.to_dict()
+
+        sender = [user.to_dict() for user in user.sender if user.status == True]
+        recipient = [user.to_dict() for user in user.recipient if user.status == True]
+        user = user.to_dict()
+        user["sender"] = sender
+        user["recipient"] = recipient
+        return user
     return {"error": "Failed"}
 
 @user_routes.route('/banner/<int:id>', methods=["PUT"])
@@ -82,4 +93,10 @@ def profile_banner_edit(id):
 
     db.session.add(user)
     db.session.commit()
-    return user.to_dict()
+
+    sender = [user.to_dict() for user in user.sender if user.status == True]
+    recipient = [user.to_dict() for user in user.recipient if user.status == True]
+    user = user.to_dict()
+    user["sender"] = sender
+    user["recipient"] = recipient
+    return user
