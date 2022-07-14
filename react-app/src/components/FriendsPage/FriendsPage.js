@@ -43,7 +43,7 @@ function FriendsPage() {
         await dispatch(getAllFriends({ userId: sessionUser.id }));
         await dispatch(getAllPendingSentFQ({ userId: sessionUser.id }));
         await dispatch(getAllPendingReceivedFQ({ userId: sessionUser.id }));
-        await dispatch(getAllUsers());
+        // await dispatch(getAllUsers());
       }
     });
 
@@ -278,7 +278,7 @@ function FriendsPage() {
           })}
         </div>
       </div>
-      <div className="height">
+      {/* <div className="height">
         <span className="friendpage__container__text">People you may know</span>
         {errors.map((error, ind) => (
           <div className="friendpage__friend__error" key={ind}>
@@ -318,7 +318,7 @@ function FriendsPage() {
             );
           })}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

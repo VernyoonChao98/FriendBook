@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
-import { io } from "socket.io-client";
 import { useHistory } from "react-router-dom";
+
+import moment from "moment";
+
+import { io } from "socket.io-client";
 
 import { getUserProfile, cleanUserProfile } from "../../store/userprofile";
 
@@ -17,10 +19,13 @@ import {
 } from "../../store/friend";
 
 import { getAllUsers, cleanUsers } from "../../store/users";
+import { createFriendFQ } from "../../store/friend";
 
 import CreatePostModal from "../Modal/CreatePostModal";
 import EditUserProfileModal from "../Modal/EditUserProfileModal";
 import EditUserBannerModal from "../Modal/EditUserBannerModal";
+
+import FriendNumber from "./FriendNumber";
 
 import Posts from "../Posts";
 
@@ -33,9 +38,48 @@ function User() {
   const sessionUser = useSelector((state) => state.session.user);
   const userProfile = useSelector((state) => state.userprofile)[userId];
   const friends = useSelector((state) => state.friends.friends);
+  const pendingSent = useSelector((state) => state.friends.pendingSentFQ);
+  const pendingReceived = useSelector(
+    (state) => state.friends.pendingReceivedFQ
+  );
+  const [checkIfFriend, setCheckIfFriend] = useState(false);
+  const [pendingFriend, setPendingFriend] = useState(false);
+
+  if (userProfile && userId !== sessionUser.id) {
+    let keys1 = Object?.keys(userProfile?.sender);
+    keys1.forEach((key) => {
+      if (friends[key]) {
+        if (checkIfFriend) return;
+        setCheckIfFriend(true);
+      }
+    });
+
+    let keys2 = Object?.keys(userProfile?.recipient);
+    keys2.forEach((key) => {
+      if (friends[key]) {
+        if (checkIfFriend) return;
+        setCheckIfFriend(true);
+      }
+    });
+
+    let keys3 = Object?.keys(userProfile?.pendingSentFQ);
+    keys3.forEach((key) => {
+      if (pendingReceived[key]) {
+        if (pendingFriend) return;
+        setPendingFriend(true);
+      }
+    });
+
+    let keys4 = Object?.keys(userProfile?.pendingReceivedFQ);
+    keys4.forEach((key) => {
+      if (pendingSent[key]) {
+        if (pendingFriend) return;
+        setPendingFriend(true);
+      }
+    });
+  }
 
   const [isLoaded, setIsLoaded] = useState(false);
-  // const [previewUrl, setPreviewUrl] = useState();
 
   const roomUrl = window.location.pathname;
 
@@ -43,6 +87,7 @@ function User() {
     socket = io({
       // autoConnect: false,
     });
+
     // socket.connect();
 
     const regex = /[^\d]/g;
@@ -115,7 +160,7 @@ function User() {
         await dispatch(getAllFriends({ userId: sessionUser.id }));
         await dispatch(getAllPendingSentFQ({ userId: sessionUser.id }));
         await dispatch(getAllPendingReceivedFQ({ userId: sessionUser.id }));
-        await dispatch(getAllUsers());
+        // await dispatch(getAllUsers());
       }
     });
 
@@ -136,21 +181,32 @@ function User() {
       dispatch(cleanPost());
       dispatch(cleanUserProfile());
       setIsLoaded(false);
+      setCheckIfFriend(false);
+      setPendingFriend(false);
       socket.emit("leave", socketPayload);
       socket.disconnect();
     };
   }, [dispatch, history, userId, roomUrl, sessionUser.id]);
 
-  // const updateImage = (e) => {
-  //   console.log(e.target.files, "this is line 47");
-  //   const file = e.target.files[0];
-  //   setImgUrl(file);
-  //   setShowModal(true);
-  //   if (file) {
-  //     setPreviewUrl(URL.createObjectURL(file));
-  //   }
-  //   setSubmitted(true);
-  // };
+  const handleSendFQ = async (e, user_b) => {
+    e.preventDefault();
+    const payload = {
+      user_a: sessionUser.id,
+      user_b,
+      user_id: sessionUser.id,
+    };
+    await dispatch(createFriendFQ(payload)).then((data) => {
+      // setErrors([]);
+      if (data) {
+        // const validationErrors = [];
+        // validationErrors.push(data);
+        // setErrors(validationErrors);
+      } else {
+        socket.emit("friends", payload);
+      }
+    });
+    setPendingFriend(true);
+  };
 
   return (
     isLoaded && (
@@ -174,19 +230,48 @@ function User() {
                 <span className="userprofile__top__username">
                   {userProfile?.username}
                 </span>
-                <span className="">
-                  {Object.values(friends).length === 0 ? (
-                    <></>
-                  ) : (
-                    <>
-                      {Object.values(friends).length === 1 ? (
-                        <>{Object.values(friends).length} Friend</>
-                      ) : (
-                        <>{Object.values(friends).length} Friends</>
-                      )}
-                    </>
-                  )}
-                </span>
+                <FriendNumber />
+                {sessionUser?.id !== userProfile?.id ? (
+                  <>
+                    {checkIfFriend === false ? (
+                      <>
+                        {pendingFriend === false ? (
+                          <>
+                            <button
+                              onClick={(e) => {
+                                handleSendFQ(e, userId);
+                              }}
+                            >
+                              Add Friend
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              disabled
+                              onClick={(e) => {
+                                handleSendFQ(e, userId);
+                              }}
+                            >
+                              Pending Friend Request
+                            </button>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          disabled
+                          onClick={(e) => {
+                            handleSendFQ(e, userId);
+                          }}
+                        >
+                          Already Friends
+                        </button>
+                      </>
+                    )}
+                  </>
+                ) : null}
               </div>
             </div>
             {sessionUser?.id === userProfile?.id ? (

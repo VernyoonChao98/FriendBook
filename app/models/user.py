@@ -46,5 +46,5 @@ class User(db.Model, UserMixin):
             "birthday": self.birthday,
             "avatar_url": self.avatar_url,
             "banner_url": self.banner_url,
-            "online": self.online
+            "online": self.online,
         }
