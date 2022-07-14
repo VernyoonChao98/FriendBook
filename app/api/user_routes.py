@@ -22,10 +22,14 @@ def users(search_input):
 def user(id):
     user = User.query.get(id)
     sender = [user.to_dict() for user in user.sender if user.status == True]
+    pendingSentFQ = [user.to_dict() for user in user.sender if user.status == False]
     recipient = [user.to_dict() for user in user.recipient if user.status == True]
+    pendingReceivedFQ = [user.to_dict() for user in user.recipient if user.status == False]
     user = user.to_dict()
     user["sender"] = sender
     user["recipient"] = recipient
+    user["pendingSentFQ"] = pendingSentFQ
+    user["pendingReceivedFQ"] = pendingReceivedFQ
     return user
 
 @user_routes.route('/profile/<int:id>', methods=["PUT"])
@@ -60,10 +64,14 @@ def profile_avatar_edit(id):
         db.session.commit()
 
         sender = [user.to_dict() for user in user.sender if user.status == True]
+        pendingSentFQ = [user.to_dict() for user in user.sender if user.status == False]
         recipient = [user.to_dict() for user in user.recipient if user.status == True]
+        pendingReceivedFQ = [user.to_dict() for user in user.recipient if user.status == False]
         user = user.to_dict()
         user["sender"] = sender
         user["recipient"] = recipient
+        user["pendingSentFQ"] = pendingSentFQ
+        user["pendingReceivedFQ"] = pendingReceivedFQ
         return user
     return {"error": "Failed"}
 
@@ -95,8 +103,12 @@ def profile_banner_edit(id):
     db.session.commit()
 
     sender = [user.to_dict() for user in user.sender if user.status == True]
+    pendingSentFQ = [user.to_dict() for user in user.sender if user.status == False]
     recipient = [user.to_dict() for user in user.recipient if user.status == True]
+    pendingReceivedFQ = [user.to_dict() for user in user.recipient if user.status == False]
     user = user.to_dict()
     user["sender"] = sender
     user["recipient"] = recipient
+    user["pendingSentFQ"] = pendingSentFQ
+    user["pendingReceivedFQ"] = pendingReceivedFQ
     return user

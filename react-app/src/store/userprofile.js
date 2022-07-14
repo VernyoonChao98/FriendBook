@@ -68,32 +68,58 @@ const userProfileReducer = (state = initialState, action) => {
       newState[userProfile.id] = userProfile;
       let senderObj = {};
       let requestObj = {};
+      let senderPendingFQObj = {};
+      let receivedPendingFQObj = {};
       let senderArr = newState[userProfile.id].sender;
       let requestArr = newState[userProfile.id].recipient;
+      let sentPendingFQArr = newState[userProfile.id].pendingSentFQ;
+      let receivedPendingFQArr = newState[userProfile.id].pendingReceivedFQ;
       senderArr.forEach((friendRQSent) => {
         senderObj[friendRQSent.id] = friendRQSent;
       });
       requestArr.forEach((receivedRQSent) => {
         requestObj[receivedRQSent.id] = receivedRQSent;
       });
+      sentPendingFQArr.forEach((sent) => {
+        senderPendingFQObj[sent.id] = sent;
+      });
+      receivedPendingFQArr.forEach((received) => {
+        receivedPendingFQObj[received.id] = received;
+      });
       newState[userProfile.id].sender = senderObj;
       newState[userProfile.id].recipient = requestObj;
+      newState[userProfile.id].pendingSentFQ = senderPendingFQObj;
+      newState[userProfile.id].pendingReceivedFQ = receivedPendingFQObj;
       return newState;
     case EDIT_USER_PROFILE:
       const editedUserProfile = action.payload;
       newState[editedUserProfile.id] = editedUserProfile;
       let senderObjEdit = {};
       let requestObjEdit = {};
+      let senderPendingFQObjEdit = {};
+      let receivedPendingFQObjEdit = {};
       let senderArrEdit = newState[editedUserProfile.id].sender;
       let requestArrEdit = newState[editedUserProfile.id].recipient;
+      let sentPendingFQArrEdit = newState[editedUserProfile.id].pendingSentFQ;
+      let receivedPendingFQArrEdit =
+        newState[editedUserProfile.id].pendingReceivedFQ;
       senderArrEdit.forEach((friendRQSent) => {
         senderObjEdit[friendRQSent.id] = friendRQSent;
       });
       requestArrEdit.forEach((receivedRQSent) => {
         requestObjEdit[receivedRQSent.id] = receivedRQSent;
       });
+      sentPendingFQArrEdit.forEach((sent) => {
+        senderPendingFQObjEdit[sent.id] = sent;
+      });
+      receivedPendingFQArrEdit.forEach((received) => {
+        receivedPendingFQObjEdit[received.id] = received;
+      });
       newState[editedUserProfile.id].sender = senderObjEdit;
       newState[editedUserProfile.id].recipient = requestObjEdit;
+      newState[editedUserProfile.id].pendingSentFQ = senderPendingFQObjEdit;
+      newState[editedUserProfile.id].pendingReceivedFQ =
+        receivedPendingFQObjEdit;
       return newState;
     case CLEAN_USER_PROFILE:
       return {};
